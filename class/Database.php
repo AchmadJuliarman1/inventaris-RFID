@@ -11,7 +11,7 @@ class Database{
 	}
 
 	function inputRFID($rfid){
-		$sql = "INSERT INTO rfid (no_aset) VALUES('$rfid')";
+		$sql = "UPDATE rfid SET no_aset = '$rfid'";
 		if (mysqli_query($this->conn, $sql)) {
 	        if (mysqli_affected_rows($this->conn) > 0) {
 	            return "Data berhasil ditambahkan.";
@@ -25,6 +25,5 @@ class Database{
 
 }
 
-$db = new Database("localhost", "root", "", "inventaris");
 
  ?>
