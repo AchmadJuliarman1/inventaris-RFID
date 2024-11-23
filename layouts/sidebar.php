@@ -47,6 +47,7 @@
             </div>
           </a>
         </li>
+        <hr>
         <li class="nav-item mb-2">
           <a href="<?= PAGES_PATH ?>aset/" class="nav-link">
             <div class="d-flex align-items-center">
