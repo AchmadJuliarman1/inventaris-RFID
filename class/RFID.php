@@ -6,7 +6,7 @@ class RFID{
 	function __construct($db){
 		$this->db = $db;
 	}
-	
+
 	function inputRFID($rfid){
 		$sql = "UPDATE rfid SET no_aset = '$rfid'";
 		if (mysqli_query($this->conn, $sql)) {
@@ -18,5 +18,18 @@ class RFID{
 	    } else {
 	        return "Error: " . mysqli_error($this->conn);
 	    }
+	}
+
+	function getRFID(){
+		$sql = "SELECT * FROM rfid";
+		$result = mysqli_query($this->db->conn, $sql);
+
+		if (!$result) {
+            echo "Error: " . mysqli_error($this->db->conn);
+            return;
+        }
+
+	    $rfid = mysqli_fetch_all($result, MYSQLI_ASSOC); 
+	    return $rfid;
 	}
 }

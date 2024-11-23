@@ -1,9 +1,9 @@
 <?php
 include_once "../../class/Database.php";
+include_once "../../class/RFID.php";
 $db = new Database("localhost", "root", "", "inventaris");
-$sql = "SELECT * FROM rfid";
-$result = mysqli_query($db->conn, $sql);
-$no_aset = mysqli_fetch_all($result, MYSQLI_ASSOC)[0]["no_aset"];
+$rfid = new RFID($db);
+$no_aset = $rfid->getRFID()[0]["no_aset"];
 
 echo $no_aset;
  ?>
