@@ -33,6 +33,10 @@
       background-color: #dce5ff;
       color: #007bff;
     }
+    .nav:hover> :not(:hover) {
+      filter:blur(0.95px);
+      opacity: 0.9;
+    }
   </style>
 </head>
 <body>
