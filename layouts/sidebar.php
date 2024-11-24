@@ -35,7 +35,7 @@
     }
     .nav:hover> :not(:hover) {
       filter:blur(0.8px);
-      opacity: 0.9;
+      opacity: 0.6;
     }
   </style>
 </head>
