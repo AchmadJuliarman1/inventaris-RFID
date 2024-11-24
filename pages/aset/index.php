@@ -66,6 +66,13 @@ $aset = $aset->tampilDataAset();
       </div>
       <div class="modal-body">
         <img src="" id="gambar" style="width:20vw;" >
+        <ul class="list-group mt-3">
+          <li class="list-group-item active" aria-current="true" id="kode"></li>
+          <li class="list-group-item" id="nama"></li>
+          <li class="list-group-item" id="kategori"></li>
+          <li class="list-group-item" id="stok"></li>
+          <li class="list-group-item" id="tanggal"></li>
+        </ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -86,12 +93,12 @@ $(document).ready(function(){
     const tanggal = $(this).data('tanggal');
     const gambar = $(this).data('gambar');
 
-    $('#modal-lihat .modal-body #kode').val(kode);
-    $('#modal-lihat .modal-body #nama').val(nama);
-    $('#modal-lihat .modal-body #kategori').val(kategori);
-    $('#modal-lihat .modal-body #stok').val(stok);
-    $('#modal-lihat .modal-body #tanggal').val(tanggal);
-    $('#modal-lihat .modal-body #gambar').attr("src", '../../layouts/gambar-aset/'+gambar);
+    $('#modal-lihat #kode').html('<b>KODE ASET : </b>'+kode);
+    $('#modal-lihat #nama').html('<b>Nama Aset : </b>'+nama);
+    $('#modal-lihat #kategori').html('<b>Kategori : </b>'+kategori);
+    $('#modal-lihat #stok').html('<b>Stok : </b>'+stok);
+    $('#modal-lihat #tanggal').html('<b>Tanggal : </b>'+tanggal);
+    $('#modal-lihat #gambar').attr("src", '../../layouts/gambar-aset/'+gambar);
   });
 });
 
