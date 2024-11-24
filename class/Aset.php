@@ -56,7 +56,7 @@ class Aset{
 	            return 0;
 	        }
 	    } else {
-	        return "Error: " . mysqli_error($$this->db->conn);
+	        return "Error: " . mysqli_error($this->db->conn);
 	    }
 	}
 
@@ -83,7 +83,7 @@ class Aset{
 	            return 0;
 	        }
 	    } else {
-	        return "Error: " . mysqli_error($$this->db->conn);
+	        return "Error: " . mysqli_error($this->db->conn);
 	    }
 	}
 
@@ -99,7 +99,7 @@ class Aset{
 	            return 0;
 	        }
 	    } else {
-	        return "Error: " . mysqli_error($$this->db->conn);
+	        return "Error: " . mysqli_error($this->db->conn);
 	    }
 	}
 	

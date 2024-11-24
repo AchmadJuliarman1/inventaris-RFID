@@ -103,7 +103,7 @@ $(document).ready(function(){
 });
 
 </script>
-<?php if(isset($_SESSION['tambah-aset']) || isset($_SESSION['ubah-aset'])) : ?>
+<?php if(isset($_SESSION['tambah-aset'])) : ?>
 <?php if($_SESSION['tambah-aset'] == 1) { ?>
 <script>
   Swal.fire({
@@ -113,7 +113,9 @@ $(document).ready(function(){
   });
 </script>
 <?php $_SESSION['tambah-aset'] = 0; } ?>
+<?php endif; ?>
 
+<?php if (isset($_SESSION['ubah-aset'])) : ?>
 <?php if($_SESSION['ubah-aset'] == 1) { ?>
 <script>
   Swal.fire({

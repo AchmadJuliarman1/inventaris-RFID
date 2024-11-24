@@ -5,6 +5,58 @@ include_once CLASS_PATH."Database.php";
 include_once CLASS_PATH."Kategori.php"; 
 
 $db = new Database("localhost", "root", "", "inventaris");
+$kategori = new Kategori($db);
+$kategori = $kategori->tampilDataKategori();
 ?>
+<!-- Main Content -->
+  <div class="flex p-4">
+    <div class="flex">
+      <a href="<?= PAGES_PATH ?>kategori/tambah-data.php" type="button" class="btn btn-primary btn-lg my-2">Tambah Kategori</a>
+    </div>
+    <table class="table table-hover table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">ID kategori</th>
+          <th scope="col">Nama Kategori</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      <?php foreach ($kategori as $k) : ?>
+        <tr>
+          <th scope="row"><?= $k["id_kategori"] ?></th>
+          <td><?= $k["nama_kategori"] ?></td>
+          <td>
+            <a href="<?= PAGES_PATH ?>kategori/ubah-data.php?id=<?= $k['id_kategori'] ?>&nama=<?= $k['nama_kategori'] ?>" type="button" class="btn btn-success my-2">Ubah</a>
+            <a href="<?= PAGES_PATH ?>kategori/hapus-data.php?id=<?= $k['id_kategori'] ?>" type="button" class="btn btn-danger my-2">Hapus</a>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
+<?php if(isset($_SESSION['tambah-kategori'])) : ?>
+<?php if($_SESSION['tambah-kategori'] == 1) { ?>
+<script>
+  Swal.fire({
+    title: "Data Berhasil ditambahkan!",
+    text: "You clicked the button!",
+    icon: "success"
+  });
+</script>
+<?php $_SESSION['tambah-kategori'] = 0; } ?>
+<?php endif; ?>
 
+<?php if (isset($_SESSION['ubah-kategori'])) : ?>
+<?php if($_SESSION['ubah-kategori'] == 1) { ?>
+<script>
+  Swal.fire({
+    title: "Data Berhasil diubah!",
+    text: "You clicked the button!",
+    icon: "success"
+  });
+</script>
+<?php $_SESSION['ubah-kategori'] = 0;  } ?>
+<?php endif; ?>
+<?php include_once LAYOUTS_PATH."footer.php";?>
 <?php include_once LAYOUTS_PATH."footer.php";?>

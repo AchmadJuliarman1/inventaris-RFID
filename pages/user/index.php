@@ -19,18 +19,21 @@ $users = $user->tampilDataUser();
         <tr>
           <th scope="col">ID user</th>
           <th scope="col">Username</th>
+          <th scope="col">Nama</th>
+          <th scope="col">Role</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
-      <?php foreach ($user as $a) : ?>
+      <?php foreach ($users as $u) : ?>
         <tr>
-          <th scope="row"></th>
-          <td></td>
+          <th scope="row"><?= $u["id"] ?></th>
+          <td><?= $u["username"] ?></td>
+          <td><?= $u["nama"] ?></td>
+          <td><?= $u["role"] ?></td>
           <td>
-            <button type="button" class="btn btn-primary">Lihat</button>
-            <a href="<?= PAGES_PATH ?>user/ubah-data.php?" type="button" class="btn btn-success my-2">Ubah</a>
-            <a href="<?= PAGES_PATH ?>user/hapus-data.php?" type="button" class="btn btn-danger my-2">Hapus</a>
+            <a href="<?= PAGES_PATH ?>user/ubah-data.php?id=<?= $u['id'] ?>&nama=<?= $u['nama'] ?>&username=<?= $u['username'] ?>&role=<?= $u['role'] ?>" type="button" class="btn btn-success my-2">Ubah</a>
+            <a href="<?= PAGES_PATH ?>user/hapus-data.php?id=<?= $u['id'] ?>" type="button" class="btn btn-danger my-2">Hapus</a>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -38,7 +41,7 @@ $users = $user->tampilDataUser();
     </table>
   </div>
 
-<?php if(isset($_SESSION['tambah-user']) || isset($_SESSION['ubah-user'])) : ?>
+<?php if(isset($_SESSION['tambah-user'])) : ?>
 <?php if($_SESSION['tambah-user'] == 1) { ?>
 <script>
   Swal.fire({
@@ -48,7 +51,9 @@ $users = $user->tampilDataUser();
   });
 </script>
 <?php $_SESSION['tambah-user'] = 0; } ?>
+<?php endif; ?>
 
+<?php if (isset($_SESSION['ubah-user'])) : ?>
 <?php if($_SESSION['ubah-user'] == 1) { ?>
 <script>
   Swal.fire({
