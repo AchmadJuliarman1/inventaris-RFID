@@ -4,3 +4,5 @@ define("CLASS_PATH", $_SERVER['DOCUMENT_ROOT'].'/inventaris RFID/class/');
 define("LAYOUTS_PATH", $_SERVER['DOCUMENT_ROOT'].'/inventaris RFID/layouts/');
 define("PAGES_PATH", 'http://localhost/inventaris RFID/pages/');
 define("ICONS_PATH", 'http://localhost/inventaris RFID/layouts/icons/');
+define("GAMBAR_PATH", $_SERVER['DOCUMENT_ROOT'].'/inventaris RFID/layouts/gambar-aset/');
+define("GAMBAR_DIR", 'localhost/inventaris RFID/layouts/gambar-aset/');

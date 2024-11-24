@@ -14,6 +14,10 @@ $_SESSION['ubah-aset'] = 0;
 if(isset($_POST['submit'])){
 	if($aset->ubahAset($_POST) == 1){
 		$_SESSION['ubah-aset'] = 1;
+		echo '
+		<script>
+			window.location.href = "index.php"
+		</script> ';
 	}
 }
 
@@ -41,7 +45,7 @@ $id_kategori = $_GET['id_kategori'];
 		</div>
 		<div class="mt-4">
 			<label for="stok" class="form-label">Stok</label>
-			<input type="text" class="form-control stok" name="stok" value="<?= $stok ?>">
+			<input type="number" class="form-control stok" name="stok" value="<?= $stok ?>">
 		</div class="mt-4">
 		<div class="mt-4">
 			<label for="stok" class="form-label">Kategori</label>
@@ -58,18 +62,5 @@ $id_kategori = $_GET['id_kategori'];
 	</form>
 </div>
 
-
-<?php if($_SESSION['ubah-aset'] == 1) { ?>
-<script>
-	Swal.fire({
-	  title: "Data Berhasil diubah!",
-	  text: "You clicked the button!",
-	  icon: "success"
-	});
-</script>
-<?php 
-	$_SESSION['ubah-aset'] = 0;  
-	header('Refresh: 1.5; URL=index.php');
-} ?>
 
 <?php include_once LAYOUTS_PATH."footer.php";?>
