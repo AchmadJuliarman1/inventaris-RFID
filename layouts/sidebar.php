@@ -34,18 +34,26 @@
       color: #007bff;
     }
     .nav:hover> :not(:hover) {
-      filter:blur(0.95px);
+      filter:blur(0.8px);
       opacity: 0.9;
     }
   </style>
 </head>
 <body>
+  <?php 
+    $folder_name = explode('\\', getcwd()); 
+    if(!isset($folder_name[5])){
+      $folder_name = "";
+    }else{
+      $folder_name = $folder_name[5];
+    }
+  ?>
   <div class="d-flex">  
     <!-- Sidebar -->
     <nav class="sidebar d-flex flex-column p-3">
       <ul class="nav flex-column">
         <li class="nav-item mb-2">
-          <a href="<?= PAGES_PATH; ?>" class="nav-link">
+          <a href="<?= PAGES_PATH; ?>" class="nav-link <?= $folder_name == "" ? "active" : ""; ?>">
             <div class="d-flex align-items-center">
                 <img src="<?= ICONS_PATH ?>home.png" style="width: 2vw ;"> <div class="px-1">Halaman Utama</div>
             </div>
@@ -53,21 +61,21 @@
         </li>
         <hr>
         <li class="nav-item mb-2">
-          <a href="<?= PAGES_PATH ?>aset/" class="nav-link">
+          <a href="<?= PAGES_PATH ?>aset/" class="nav-link <?= $folder_name == "aset" ? "active" : ""; ?>">
             <div class="d-flex align-items-center">
                 <img src="<?= ICONS_PATH ?>aset.png" style="width: 2vw ;"> <div class="px-1">Pengadaan</div>
             </div>
           </a>
         </li>
         <li class="nav-item mb-2">
-          <a href="<?= PAGES_PATH ?>" class="nav-link">
+          <a href="<?= PAGES_PATH ?>user/" class="nav-link <?= $folder_name == "user" ? "active" : ""; ?>">
             <div class="d-flex align-items-center">
                 <img src="<?= ICONS_PATH ?>users.png" style="width: 2vw ;"> <div class="px-1">Kelola Data User</div>
             </div>
           </a>
         </li>
         <li class="nav-item mb-2">
-          <a href="<?= PAGES_PATH ?>" class="nav-link">
+          <a href="<?= PAGES_PATH ?>kategori/" class="nav-link <?= $folder_name == "kategori" ? "active" : ""; ?>">
             <div class="d-flex align-items-center">
               <img src="<?= ICONS_PATH ?>category.png" style="width: 2vw ;"> <div class="px-1">Kelola Data Kategori</div>
             </div>
