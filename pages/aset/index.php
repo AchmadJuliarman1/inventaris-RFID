@@ -45,7 +45,7 @@ $aset = $aset->tampilDataAset();
             </button>
             <a href="<?= PAGES_PATH ?>aset/ubah-data.php?kode_aset=<?= $a["kode_aset"]; ?>&nama_aset=<?= $a["nama_aset"]; ?>&stok=<?= $a["stok"]; ?>&created_at=<?= $a["created_at"]; ?>&id_aset=<?= $a['id'] ?>&id_kategori=<?= $a['id_kategori'] ?>" 
               type="button" class="btn btn-success my-2">Ubah</a>
-            <a href="<?= PAGES_PATH ?>aset/hapus-data.php?id=<?= $a['id'] ?>" type="button" class="btn btn-danger my-2">Hapus</a>
+            <a href="" type="button" class="btn btn-danger my-2 hapus" data-id="<?= $a['id'] ?>">Hapus</a>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -126,4 +126,27 @@ $(document).ready(function(){
 </script>
 <?php $_SESSION['ubah-aset'] = 0;  } ?>
 <?php endif; ?>
+
+<script>
+  $(document).ready(function(){
+    $('.hapus').on('click', function() {
+      event.preventDefault();
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location = 'hapus-data.php?id='+$(this).data('id');;
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      });
+    });
+  });
+</script>
 <?php include_once LAYOUTS_PATH."footer.php";?>

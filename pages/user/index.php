@@ -33,7 +33,7 @@ $users = $user->tampilDataUser();
           <td><?= $u["role"] ?></td>
           <td>
             <a href="<?= PAGES_PATH ?>user/ubah-data.php?id=<?= $u['id'] ?>&nama=<?= $u['nama'] ?>&username=<?= $u['username'] ?>&role=<?= $u['role'] ?>" type="button" class="btn btn-success my-2">Ubah</a>
-            <a href="<?= PAGES_PATH ?>user/hapus-data.php?id=<?= $u['id'] ?>" type="button" class="btn btn-danger my-2">Hapus</a>
+            <a href="" type="button" class="btn btn-danger my-2 hapus" data-id="<?= $u["id"] ?>">Hapus</a>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -64,4 +64,27 @@ $users = $user->tampilDataUser();
 </script>
 <?php $_SESSION['ubah-user'] = 0;  } ?>
 <?php endif; ?>
+
+<script>
+  $(document).ready(function(){
+    $('.hapus').on('click', function() {
+      event.preventDefault();
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location = 'hapus-data.php?id='+$(this).data('id');;
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      });
+    });
+  });
+</script>
 <?php include_once LAYOUTS_PATH."footer.php";?>

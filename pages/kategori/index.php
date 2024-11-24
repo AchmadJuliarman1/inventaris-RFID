@@ -28,7 +28,7 @@ $kategori = $kategori->tampilDataKategori();
           <td><?= $k["nama_kategori"] ?></td>
           <td>
             <a href="<?= PAGES_PATH ?>kategori/ubah-data.php?id=<?= $k['id_kategori'] ?>&nama=<?= $k['nama_kategori'] ?>" type="button" class="btn btn-success my-2">Ubah</a>
-            <a href="<?= PAGES_PATH ?>kategori/hapus-data.php?id=<?= $k['id_kategori'] ?>" type="button" class="btn btn-danger my-2">Hapus</a>
+            <a href="" type="button" class="btn btn-danger my-2 hapus" data-id="<?= $k['id_kategori'] ?>">Hapus</a>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -58,5 +58,27 @@ $kategori = $kategori->tampilDataKategori();
 </script>
 <?php $_SESSION['ubah-kategori'] = 0;  } ?>
 <?php endif; ?>
-<?php include_once LAYOUTS_PATH."footer.php";?>
+
+<script>
+  $(document).ready(function(){
+    $('.hapus').on('click', function() {
+      event.preventDefault();
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location = 'hapus-data.php?id='+$(this).data('id');;
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      });
+    });
+  });
+</script>
 <?php include_once LAYOUTS_PATH."footer.php";?>

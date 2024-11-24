@@ -16,16 +16,13 @@ Swal.fire({
   confirmButtonColor: "#3085d6",
   cancelButtonColor: "#d33",
   confirmButtonText: "Yes, delete it!"
-})
-// }).then((result) => {
-//   if (result.isConfirmed) {
-//     Swal.fire({
-//       title: "Deleted!",
-//       text: "Your file has been deleted.",
-//       icon: "success"
-//     });
-//   }
-// });
+}).then((result) => {
+  if (result.isConfirmed) {
+    window.location = 'index.php';
+  } else if (result.isDenied) {
+    Swal.fire('Changes are not saved', '', 'info')
+  }
+});
 </script>
 
 <?php include_once LAYOUTS_PATH."footer.php";?>
