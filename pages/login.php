@@ -6,6 +6,9 @@ include_once CLASS_PATH."User.php";
 $db = new Database("localhost", "root", "", "inventaris");
 $user = new User($db);
 
+$_SESSION['username'] = "";
+$_SESSION['pass'] = "";
+
 if(isset($_POST["submit"])){
 	$username = $_POST["username"];
 	$pass = $_POST["pass"];
@@ -14,8 +17,6 @@ if(isset($_POST["submit"])){
 	}
 }
 
-$_SESSION['username'] = "";
-$_SESSION['pass'] = "";
 ?>
 <!doctype html>
 <html lang="en">
