@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include_once $_SERVER['DOCUMENT_ROOT']."/inventaris RFID/app/config.php";
 include_once CLASS_PATH."Database.php"; 
 include_once CLASS_PATH."User.php"; 
@@ -12,6 +13,7 @@ if(isset($_POST["submit"])){
 		header("Location: index.php");
 	}
 }
+
 $_SESSION['username'] = "";
 $_SESSION['pass'] = "";
 ?>
@@ -172,14 +174,14 @@ $_SESSION['pass'] = "";
 	          <h2>Welcome Back!</h2>
 	          <p>Login to your account to continue</p>
 	          <div class="input-group">
-	          	<?php  if ($_SESSION['username'] == 0) : ?>
+	          	<?php  if ($_SESSION['username'] == 0 && $_SESSION['username'] != 1) : ?>
 	          	⛔ username not found
 	        	<?php endif; ?>
 	            <input type="username" placeholder="username" name="username" required>
 	            <span class="input-icon">📧</span>
 	          </div>
 	          <div class="input-group">
-	          	<?php  if ($_SESSION['pass'] == 0) : ?>
+	          	<?php  if ($_SESSION['pass'] == 0 && $_SESSION['pass'] != 1) : ?>
 	          	⛔ password not matched
 	        	<?php endif; ?>
 	            <input type="password" placeholder="Password" name="pass" required>

@@ -29,6 +29,7 @@ class User{
 			$_SESSION['username'] = $user[0]["username"];
 			$_SESSION['nama'] = $user[0]["nama"];
 			$_SESSION['id'] = $user[0]["id"];
+			$_SESSION['login'] = true;
 		}
 		return 1;
 	}

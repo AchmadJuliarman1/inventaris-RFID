@@ -83,5 +83,16 @@
           </a>
         </li>
       </ul>
+
+      <ul class="nav flex-column">
+        <hr>
+        <li class="nav-item mb-2">
+          <a href="<?= PAGES_PATH; ?>" class="nav-link <?= $folder_name == "" ? "active" : ""; ?>">
+            <div class="d-flex align-items-center">
+                <img src="<?= ICONS_PATH ?>home.png" style="width: 2vw ;"> <div class="px-1">Halaman Utama</div>
+            </div>
+          </a>
+        </li>
+      </ul>
     </nav>
     

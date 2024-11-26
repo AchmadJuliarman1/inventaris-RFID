@@ -1,7 +1,7 @@
 <?php
 session_start(); 
 include_once $_SERVER['DOCUMENT_ROOT'].'/inventaris RFID/app/config.php';
-if($_SESSION['username'] == 0 || $_SESSION['username'] == ""){
+if($_SESSION['login'] == false){
   header("Location: ".PAGES_PATH."login.php");
 }
 ?>
