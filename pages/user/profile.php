@@ -19,6 +19,7 @@ if(isset($_POST['submit'])){
 ?>
 
 <div class="container mt-4">
+
   <h1>Ubah Data Saya</h1>
   <form action="" method="post">
     <div class="mt-4">
@@ -44,7 +45,10 @@ if(isset($_POST['submit'])){
       <option value="Pimpinan" <?= $loggedInUser["role"] == 'Pimpinan' ? "selected" : "" ?>>Pimpinan</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+    <div class="d-flex justify-content-between align-middle">
+      <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+      <a href="<?= PAGES_PATH ?>/logout.php" type="button" class="btn btn-outline-danger badge text-bg-danger rounded-pill align-content-center">🔚 Log Out</a>
+    </div>
   </form>
 </div>
 
