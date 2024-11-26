@@ -1,7 +1,9 @@
 <?php
 session_start(); 
 include_once $_SERVER['DOCUMENT_ROOT'].'/inventaris RFID/app/config.php';
-
+if($_SESSION['username'] == 0 || $_SESSION['username'] == ""){
+  header("Location: ".PAGES_PATH."login.php");
+}
 ?>
 
 <!doctype html>
@@ -9,7 +11,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/inventaris RFID/app/config.php';
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Inventaris </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!-- sweet alert -->

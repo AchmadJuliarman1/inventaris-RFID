@@ -10,7 +10,7 @@ class RFID{
 	function inputRFID($rfid){
 		$sql = "UPDATE rfid SET no_aset = '$rfid'";
 		if (mysqli_query($this->db->conn, $sql)) {
-	        if (mysqli_affected_rows($this->conn) > 0) {
+	        if (mysqli_affected_rows($this->db->conn) > 0) {
 	            return "Data berhasil ditambahkan.";
 	        } else {
 	            return "Gagal menambahkan data.";

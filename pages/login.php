@@ -1,11 +1,9 @@
 <?php 
-include_once $_SERVER['DOCUMENT_ROOT']."/inventaris RFID/layouts/header.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/inventaris RFID/app/config.php";
 include_once CLASS_PATH."Database.php"; 
 include_once CLASS_PATH."User.php"; 
 $db = new Database("localhost", "root", "", "inventaris");
 $user = new User($db);
-$_SESSION['username'] = "";
-$_SESSION['pass'] = "";
 
 if(isset($_POST["submit"])){
 	$username = $_POST["username"];
@@ -14,7 +12,26 @@ if(isset($_POST["submit"])){
 		header("Location: index.php");
 	}
 }
+$_SESSION['username'] = "";
+$_SESSION['pass'] = "";
 ?>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inventaris </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  </head>
+  <body>
 <style>
 	body, h2, p, input, button {
 	  margin: 0;
