@@ -48,8 +48,8 @@ class User{
             return;
         }
 
-	    $aset = mysqli_fetch_all($result, MYSQLI_ASSOC); 
-	    return $aset;
+	    $user = mysqli_fetch_all($result, MYSQLI_ASSOC); 
+	    return $user;
 	}
 
 
@@ -76,7 +76,7 @@ class User{
 	    $username = $data["username"];
 	    $nama = $data["nama"];
 	    $role = $data["role"];
-	    $waktu = $data["pass"];
+	    $pass = $data["pass"];
 
 	    $sql = "UPDATE user 
 	            SET username = '$username', 
@@ -110,6 +110,19 @@ class User{
 	    } else {
 	        return "Error: " . mysqli_error($$this->db->conn);
 	    }
+	}
+
+	function getUserById($id){
+		$sql = "SELECT * FROM user WHERE id = '$id'";
+		$result = mysqli_query($this->db->conn, $sql);
+
+		if (!$result) {
+            echo "Error: " . mysqli_error($this->db->conn);
+            return;
+        }
+
+	    $user = mysqli_fetch_all($result, MYSQLI_ASSOC); 
+	    return $user;
 	}
 
 }

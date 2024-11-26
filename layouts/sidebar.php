@@ -8,6 +8,9 @@
       background-color: #f4f7fd;
       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     }
+    .sidebar .nav{
+      height: 100%;
+    }
     .sidebar .nav-link {
       color: #555;
       transition: background-color 0.3s, color 0.3s;
@@ -38,15 +41,25 @@
       opacity: 0.6;
       transition: 0.5s;
     }
+    .sidebar .nav-item:last-child {
+        margin-top: auto; /* This pushes the last nav-item to the bottom */
+    }
   </style>
 </head>
 <body>
   <?php 
     $folder_name = explode('\\', getcwd()); 
+    $file_name = explode('/', $_SERVER['PHP_SELF']); 
     if(!isset($folder_name[5])){
       $folder_name = "";
     }else{
       $folder_name = $folder_name[5];
+    }
+
+    if(!isset($file_name[4])){
+      $file_name = "";
+    }else{
+      $file_name = $file_name[4];
     }
   ?>
   <div class="d-flex">  
@@ -69,7 +82,7 @@
           </a>
         </li>
         <li class="nav-item mb-2">
-          <a href="<?= PAGES_PATH ?>user/" class="nav-link <?= $folder_name == "user" ? "active" : ""; ?>">
+          <a href="<?= PAGES_PATH ?>user/" class="nav-link <?= ($folder_name == "user" && $file_name != "profile.php") ? "active" : ""; ?>">
             <div class="d-flex align-items-center">
                 <img src="<?= ICONS_PATH ?>users.png" style="width: 2vw ;"> <div class="px-1">Kelola Data User</div>
             </div>
@@ -82,15 +95,14 @@
             </div>
           </a>
         </li>
-      </ul>
-
-      <ul class="nav flex-column">
-        <hr>
         <li class="nav-item mb-2">
-          <a href="<?= PAGES_PATH; ?>" class="nav-link <?= $folder_name == "" ? "active" : ""; ?>">
+        <hr>
+          <a href="<?= PAGES_PATH ?>user/profile.php" class="nav-link <?= $file_name == "profile.php" ? "active" : ""; ?>">
             <div class="d-flex align-items-center">
-                <img src="<?= ICONS_PATH ?>home.png" style="width: 2vw ;"> <div class="px-1">Halaman Utama</div>
+              <img src="<?= ICONS_PATH ?>profile.png" style="width: 2vw ;"> 
+              <div class="px-1"><?= $_SESSION['username'] ?></div>
             </div>
+            <span class="badge text-bg-info"><?= $_SESSION['role'] ?></span>
           </a>
         </li>
       </ul>
