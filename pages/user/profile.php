@@ -47,7 +47,7 @@ if(isset($_POST['submit'])){
     </div>
     <div class="d-flex justify-content-between align-middle">
       <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-      <a href="<?= PAGES_PATH ?>/logout.php" type="button" class="btn btn-outline-danger badge text-bg-danger rounded-pill align-content-center">🔚 Log Out</a>
+      <a href="<?= PAGES_PATH ?>logout.php" type="button" class="btn btn-outline-danger badge text-bg-danger rounded-pill align-content-center">🔚 Log Out</a>
     </div>
   </form>
 </div>
