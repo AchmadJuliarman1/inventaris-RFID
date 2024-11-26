@@ -3,7 +3,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/inventaris RFID/class/Database.php'); 
 require_once($_SERVER['DOCUMENT_ROOT'].'/inventaris RFID/class/RFID.php'); 
 
-$db = new Database("localhost", "root", "", "tubes_iot");
+$db = new Database("localhost", "root", "", "inventaris");
 $url = explode("/", $_GET["url"]);
 $rfid = new RFID($db);
 
