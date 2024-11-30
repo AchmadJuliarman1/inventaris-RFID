@@ -1,7 +1,7 @@
 <?php include_once $_SERVER['DOCUMENT_ROOT']."/inventaris RFID/layouts/header.php";?>
 <?php include_once LAYOUTS_PATH."sidebar.php"; ?>
 
-<div class="container d-flex flex-row align-items-start justify-content-between">
+<div class="container d-flex flex-row align-items-start justify-content-around">
   <div class="card mt-4 text-center text-white" 
   style="width: 15vw; background-image: url('<?= ICONS_PATH ?>/bg1.png'); background-repeat: no-repeat; background-size: cover;" >
     <div class="container">

@@ -7,6 +7,7 @@
       font-family: "Roboto Mono", monospace;
       background-color: #f4f7fd;
       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      position: fixed;
     }
     .sidebar .nav{
       height: 100%;
@@ -44,7 +45,10 @@
     .sidebar .nav-item:last-child {
         margin-top: auto; /* This pushes the last nav-item to the bottom */
     }
-  </style>
+    .sidebar + * {
+      margin-left: 17vw; /* Menambahkan margin-top pada elemen yang mengikuti navbar */
+    }
+</style>
 </head>
 <body>
   <?php 

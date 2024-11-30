@@ -23,7 +23,11 @@ $aset = $aset->tampilDataAset();
           <th scope="col">Nama Aset</th>
           <th scope="col">Kategori Aset</th>
           <th scope="col">Stok</th>
-          <th scope="col">Tanggal</th>
+          <th scope="col">Tanggal Perolehan</th>
+          <th scope="col">Nilai Ekonomis</th>
+          <th scope="col">Nilai Residu</th>
+          <th scope="col">Umur Ekonomis</th>
+          <th scope="col">Biaya Penyusutan</th>
           <th scope="col">action</th>
         </tr>
       </thead>
@@ -35,17 +39,21 @@ $aset = $aset->tampilDataAset();
           <?php $nama_kategori =  $kategori->cariKategoriByID($a['id_kategori'])[0]["nama_kategori"];?>
           <td><?= $nama_kategori; ?></td>
           <td><?= $a['stok']; ?></td>
-          <td><?= $a['created_at']; ?></td>
+          <td><?= $a['tanggal_perolehan']; ?></td>
+          <td><?= $a['nilai_ekonomis']; ?></td>
+          <td><?= $a['nilai_residu']; ?></td>
+          <td><?= $a['umur_ekonomis']; ?></td>
+          <td>(nilai ekonimis - nilai residu) ÷ umur ekonomis</td>
           <td>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-lihat" id="button-lihat"
             data-kode="<?= $a['kode_aset'] ?>" data-nama="<?= $a['nama_aset'] ?>"
             data-kategori="<?= $nama_kategori ?>" data-stok="<?= $a['stok'] ?>"
-            data-tanggal="<?= $a['created_at'] ?>" data-gambar=<?= $a['gambar'] ?>>
+            data-tanggal="<?= $a['tanggal_perolehan'] ?>" data-gambar=<?= $a['gambar'] ?>>
               lihat
             </button>
-            <a href="<?= PAGES_PATH ?>aset/ubah-data.php?kode_aset=<?= $a["kode_aset"]; ?>&nama_aset=<?= $a["nama_aset"]; ?>&stok=<?= $a["stok"]; ?>&created_at=<?= $a["created_at"]; ?>&id_aset=<?= $a['id'] ?>&id_kategori=<?= $a['id_kategori'] ?>" 
+            <a href="<?= PAGES_PATH ?>aset/ubah-data.php?kode_aset=<?= $a["kode_aset"]; ?>&nama_aset=<?= $a["nama_aset"]; ?>&stok=<?= $a["stok"]; ?>&tanggal=<?= $a["tanggal_perolehan"]; ?>&id_aset=<?= $a['id'] ?>&id_kategori=<?= $a['id_kategori'] ?>&nilai_ekonomis=<?= $a['nilai_ekonomis'] ?>&nilai_residu=<?= $a['nilai_residu'] ?>&umur_ekonomis=<?= $a['umur_ekonomis'] ?>&gambar=<?= $a['gambar'] ?>" 
               type="button" class="btn btn-success my-2">Ubah</a>
-            <a href="" type="button" class="btn btn-danger my-2 hapus" data-id="<?= $a['id'] ?>">Hapus</a>
+            <a href="" type="button" class="btn btn-danger my-2 hapus" data-id="<?= $a['id'] ?>" data-gambar="<?= $a['gambar'] ?>">Hapus</a>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -141,7 +149,7 @@ $(document).ready(function(){
         confirmButtonText: "Yes, delete it!"
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location = 'hapus-data.php?id='+$(this).data('id');;
+          window.location = 'hapus-data.php?id='+$(this).data('id');
         } else if (result.isDenied) {
           Swal.fire('Changes are not saved', '', 'info')
         }

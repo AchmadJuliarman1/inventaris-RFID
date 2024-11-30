@@ -21,7 +21,6 @@ if(isset($_POST['submit'])){
 	}
 }
 ?>
-
 <div class="container mt-4">
 	<form action="" method="post" enctype="multipart/form-data">
 		<div class="mt-4">
@@ -34,7 +33,7 @@ if(isset($_POST['submit'])){
 		</div>
 		<div class="mt-4">
 			<label for="stok" class="form-label">Stok</label>
-			<input type="number" class="form-control stok" name="stok" required>
+			<input type="text" class="form-control stok input-number" name="stok" required>
 		</div class="mt-4">
 		<div class="mt-4">
 			<label for="stok" class="form-label">Kategori</label>
@@ -44,6 +43,26 @@ if(isset($_POST['submit'])){
 			<?php endforeach; ?>
 			</select>
 		</div>
+		<div class="mt-4 mb-2">
+		  <label for="tanggal_perolehan" class="form-label">Tanggal Perolehan</label>
+		  <div class="input-group">
+		    <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+		    <input type="date" id="tanggal_perolehan" name="tanggal-perolehan" class="form-control" required>
+		  </div>
+		</div>
+		<div class="mt-4">
+			<label for="nilai_ekonomis" class="form-label">Nilai Ekonomis</label>
+			<input type="text" class="form-control nilai_ekonomis input-number" name="nilai-ekonomis" required>
+		</div class="mt-4">
+		<div class="mt-4">
+			<label for="umur_ekonomis" class="form-label">Umur Ekonomis</label>
+			<input type="text" class="form-control umur_ekonomis input-number" name="umur-ekonomis" required>
+		</div class="mt-4">
+		<div class="mt-4">
+			<label for="nilai_residu" class="form-label">Nilai Residu</label>
+			<input type="text" class="form-control nilai_residu input-number" name="nilai-residu" required>
+		</div class="mt-4">
+
 		<div class="mt-4 mb-2">
 			<label for="formFileSm" class="form-label">Select image to upload</label>
   			<input class="form-control form-control-sm" id="formFileSm" type="file" name="gambar" required>
@@ -80,6 +99,18 @@ if(isset($_POST['submit'])){
             }
         });
     }
+
+    flatpickr("#tanggal_perolehan", {});
+
+    const inputs = document.querySelectorAll('.input-number');
+
+	inputs.forEach(input => {
+	    input.addEventListener('input', function() {
+	      let value = input.value.replace(/\D/g, '');
+	      value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+	      input.value = value;
+	    });
+	});
 </script>
 
 

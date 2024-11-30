@@ -7,7 +7,8 @@ $db = new Database("localhost", "root", "", "inventaris");
 $aset = new Aset($db);
 
 $_SESSION['hapus-aset'] = 0;
-if($aset->hapusAset($_GET['id']) == 1){
+$gambar = $aset->getAsetById($_GET['id'])[0]["gambar"];
+if($aset->hapusAset($_GET['id'], $gambar) == 1){
 	$_SESSION['hapus-aset'] = 1;
 }
 
