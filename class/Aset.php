@@ -1,8 +1,9 @@
 <?php  
-
+include_once CLASS_PATH.'Kategori.php';
 class Aset{
 	public $db;
 	public $new_file_name;
+
 	function __construct($db){
 		$this->db = $db;
 	}
@@ -37,11 +38,16 @@ class Aset{
 
 	function cariDataAset($keyword){
 		$sql = "SELECT * FROM aset 
+		INNER JOIN kategori ON aset.id_kategori=kategori.id_kategori
 		WHERE kode_aset LIKE '%$keyword%' OR 
 		nama_aset LIKE '%$keyword%' OR
 		stok LIKE '%$keyword%' OR 
-		created_at LIKE '%$keyword%' OR
-		updated_at LIKE '%$keyword%'";
+		nama_kategori LIKE '%$keyword%' OR
+		tanggal_perolehan LIKE '%$keyword%' OR
+		umur_ekonomis LIKE '%$keyword%' OR
+		nilai_ekonomis LIKE '%$keyword%' OR
+		nilai_residu LIKE '%$keyword%' OR
+		biaya_penyusutan LIKE '%$keyword%'";
 		$result = mysqli_query($this->db->conn, $sql);
 
 		if (!$result) {
@@ -76,10 +82,11 @@ class Aset{
 		$nilai_ekonomis = preg_replace("/\./", "", $data["nilai-ekonomis"]);
 		$umur_ekonomis = preg_replace("/\./", "", $data["umur-ekonomis"]);
 		$nilai_residu = preg_replace("/\./", "", $data["nilai-residu"]);
+		$biaya_penyusutan = ($data["nilai-ekonomis"] - $data["nilai-residu"]) / $data["umur-ekonomis"];
 		$this->uploadGambar($file);
 		$file_name = $this->new_file_name;
-		$sql = "INSERT INTO aset (id, gambar, kode_aset, nama_aset, stok, id_kategori, tanggal_perolehan, nilai_ekonomis, nilai_residu, umur_ekonomis)
-		VALUES ('', '$file_name', '$kode_aset', '$nama_aset', '$stok', '$id_kategori', '$tanggal_perolehan', '$nilai_ekonomis', '$nilai_residu', '$umur_ekonomis')";
+		$sql = "INSERT INTO aset (id, gambar, kode_aset, nama_aset, stok, id_kategori, tanggal_perolehan, nilai_ekonomis, nilai_residu, umur_ekonomis, biaya_penyusutan)
+		VALUES ('', '$file_name', '$kode_aset', '$nama_aset', '$stok', '$id_kategori', '$tanggal_perolehan', '$nilai_ekonomis', '$nilai_residu', '$umur_ekonomis', '$biaya_penyusutan')";
 
 		if (mysqli_query($this->db->conn, $sql)) {
 	        if (mysqli_affected_rows($this->db->conn) > 0) {
@@ -102,6 +109,7 @@ class Aset{
 		$nilai_ekonomis = preg_replace("/\./", "", $data["nilai-ekonomis"]);
 		$umur_ekonomis = preg_replace("/\./", "", $data["umur-ekonomis"]);
 		$nilai_residu = preg_replace("/\./", "", $data["nilai-residu"]);
+		$biaya_penyusutan = ($data["nilai-ekonomis"] - $data["nilai-residu"]) / $data["umur-ekonomis"];
 		if(is_array($gambar)){
 			$this->uploadGambar($gambar);
 			$filename = $this->new_file_name;
@@ -117,7 +125,8 @@ class Aset{
 	                tanggal_perolehan = '$tanggal_perolehan', 
 	                nilai_ekonomis = '$nilai_ekonomis', 
 	                umur_ekonomis = '$umur_ekonomis', 
-	                nilai_residu = '$nilai_residu', 
+	                nilai_residu = '$nilai_residu',
+	                biaya_penyusutan = '$biaya_penyusutan', 
 	                gambar = '$filename' 
 	            WHERE id = '$id_aset'";
 

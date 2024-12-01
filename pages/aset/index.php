@@ -9,8 +9,9 @@ $db = new Database("localhost", "root", "", "inventaris");
 $aset = new Aset($db);
 $kategori = new Kategori($db);
 $asets = $aset->tampilDataAset();
+
 if (isset($_POST["cari"])) {
-  $asets = $asets->cariDataAset($_POST["keyword"]);
+  $asets = $aset->cariDataAset($_POST["keyword"]);
 }
 
 ?>
@@ -54,16 +55,18 @@ if (isset($_POST["cari"])) {
           <td>Rp. <?= number_format($a['nilai_ekonomis'],0,",","."); ?></td>
           <td>Rp. <?= number_format($a['nilai_residu'],0,",","."); ?></td>
           <td><?= number_format($a['umur_ekonomis'],0,",","."); ?> tahun</td>
-          <td>Rp. <?= number_format(($a['nilai_ekonomis'] - $a['nilai_residu']) / $a['umur_ekonomis'],0,",",".") ?></td>
+          <td>Rp. <?= number_format($a['biaya_penyusutan'],0,",",".") ?></td>
           <td>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-lihat" id="button-lihat"
             data-kode="<?= $a['kode_aset'] ?>" data-nama="<?= $a['nama_aset'] ?>"
             data-kategori="<?= $nama_kategori ?>" data-stok="<?= $a['stok'] ?>"
-            data-tanggal="<?= $a['tanggal_perolehan'] ?>" data-gambar=<?= $a['gambar'] ?>>
+            data-tanggal="<?= $a['tanggal_perolehan'] ?>" data-gambar="<?= $a['gambar'] ?>"
+            data-nilai-ekonomis="<?= $a['nilai_ekonomis'] ?>" data-nilai-residu="<?= $a['nilai_residu'] ?>"
+            data-biaya-penyusutan="<?= $a['biaya_penyusutan'] ?>" data-umur-ekonomis="<?= $a['umur_ekonomis'] ?>">
               lihat
             </button>
             <a href="<?= PAGES_PATH ?>aset/ubah-data.php?kode_aset=<?= $a["kode_aset"]; ?>&nama_aset=<?= $a["nama_aset"]; ?>&stok=<?= $a["stok"]; ?>&tanggal=<?= $a["tanggal_perolehan"]; ?>&id_aset=<?= $a['id'] ?>&id_kategori=<?= $a['id_kategori'] ?>&nilai_ekonomis=<?= $a['nilai_ekonomis'] ?>&nilai_residu=<?= $a['nilai_residu'] ?>&umur_ekonomis=<?= $a['umur_ekonomis'] ?>&gambar=<?= $a['gambar'] ?>" 
-              type="button" class="btn btn-success my-2">Ubah</a>
+            type="button" class="btn btn-success my-2">Ubah</a>
             <a href="" type="button" class="btn btn-danger my-2 hapus" data-id="<?= $a['id'] ?>" data-gambar="<?= $a['gambar'] ?>">Hapus</a>
           </td>
         </tr>
@@ -72,7 +75,6 @@ if (isset($_POST["cari"])) {
     </table>
   </div>
 </div>
-<!-- Button trigger modal -->
 
 
 <!-- Modal -->
@@ -80,22 +82,25 @@ if (isset($_POST["cari"])) {
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Detail Aset</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <img src="" id="gambar" style="width:20vw;" >
+        <img src="" id="gambar" style="width:100%;" >
         <ul class="list-group mt-3">
           <li class="list-group-item active" aria-current="true" id="kode"></li>
           <li class="list-group-item" id="nama"></li>
           <li class="list-group-item" id="kategori"></li>
           <li class="list-group-item" id="stok"></li>
           <li class="list-group-item" id="tanggal"></li>
+          <li class="list-group-item" id="nilai_ekonomis"></li>
+          <li class="list-group-item" id="nilai_residu"></li>
+          <li class="list-group-item" id="umur_ekonomis"></li>
+          <li class="list-group-item" id="biaya_penyusutan"></li>
         </ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -111,12 +116,20 @@ $(document).ready(function(){
     const stok = $(this).data('stok');
     const tanggal = $(this).data('tanggal');
     const gambar = $(this).data('gambar');
+    const umur_ekonomis = $(this).data('umur-ekonomis');
+    const nilai_ekonomis = $(this).data('nilai-ekonomis');
+    const nilai_residu = $(this).data('nilai-residu');
+    const biaya_penyusutan = $(this).data('biaya-penyusutan');
 
     $('#modal-lihat #kode').html('<b>KODE ASET : </b>'+kode);
     $('#modal-lihat #nama').html('<b>Nama Aset : </b>'+nama);
     $('#modal-lihat #kategori').html('<b>Kategori : </b>'+kategori);
     $('#modal-lihat #stok').html('<b>Stok : </b>'+stok);
-    $('#modal-lihat #tanggal').html('<b>Tanggal : </b>'+tanggal);
+    $('#modal-lihat #tanggal').html('<b>Tanggal Perolehan : </b>'+tanggal);
+    $('#modal-lihat #nilai_ekonomis').html('<b>Nilai Ekonomis : </b>'+nilai_ekonomis);
+    $('#modal-lihat #nilai_residu').html('<b>Nilai Residu : </b>'+nilai_residu);
+    $('#modal-lihat #biaya_penyusutan').html('<b>Biaya : </b>'+biaya_penyusutan);
+    $('#modal-lihat #umur_ekonomis').html('<b>Biaya : </b>'+umur_ekonomis);
     $('#modal-lihat #gambar').attr("src", '../../layouts/gambar-aset/'+gambar);
   });
 });
