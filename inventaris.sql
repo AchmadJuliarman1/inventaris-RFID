@@ -1,34 +1,27 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Waktu pembuatan: 01 Des 2024 pada 08.52
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+/*
+SQLyog Community v13.2.1 (64 bit)
+MySQL - 10.4.32-MariaDB : Database - inventaris
+*********************************************************************
+*/
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+/*!40101 SET NAMES utf8 */;
 
+/*!40101 SET SQL_MODE=''*/;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`inventaris` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
---
--- Database: `inventaris`
---
+USE `inventaris`;
 
--- --------------------------------------------------------
+/*Table structure for table `aset` */
 
---
--- Struktur dari tabel `aset`
---
+DROP TABLE IF EXISTS `aset`;
 
 CREATE TABLE `aset` (
-  `id` int(5) NOT NULL,
+  `id` int(5) NOT NULL AUTO_INCREMENT,
   `gambar` varchar(200) DEFAULT NULL,
   `kode_aset` varchar(100) NOT NULL,
   `nama_aset` varchar(250) DEFAULT NULL,
@@ -37,165 +30,87 @@ CREATE TABLE `aset` (
   `tanggal_perolehan` date DEFAULT NULL,
   `nilai_ekonomis` int(10) DEFAULT NULL,
   `nilai_residu` int(10) DEFAULT NULL,
-  `umur_ekonomis` int(3) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `umur_ekonomis` int(3) DEFAULT NULL,
+  `biaya_penyusutan` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`,`kode_aset`),
+  UNIQUE KEY `kode_aset_unique` (`kode_aset`),
+  KEY `aset_kategori` (`id_kategori`),
+  CONSTRAINT `aset_kategori` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `aset`
---
+/*Data for the table `aset` */
 
-INSERT INTO `aset` (`id`, `gambar`, `kode_aset`, `nama_aset`, `stok`, `id_kategori`, `tanggal_perolehan`, `nilai_ekonomis`, `nilai_residu`, `umur_ekonomis`) VALUES
-(38, 'gambar_20241130_204041.png', 'INV-123', 'Kursi Gaming', 21, 2, '2024-11-05', 8000000, 1000000, 5);
+insert  into `aset`(`id`,`gambar`,`kode_aset`,`nama_aset`,`stok`,`id_kategori`,`tanggal_perolehan`,`nilai_ekonomis`,`nilai_residu`,`umur_ekonomis`,`biaya_penyusutan`) values 
+(38,'gambar_20241130_204041.png','INV-123','Kursi Gaming',21,1,'2024-11-05',8000000,1000000,5,1400000),
+(39,'gambar_20241201_194804.png','INV-12312','SofaG',1,2,'2024-12-10',8000000,1000000,5,1400000);
 
--- --------------------------------------------------------
+/*Table structure for table `kategori` */
 
---
--- Struktur dari tabel `kategori`
---
+DROP TABLE IF EXISTS `kategori`;
 
 CREATE TABLE `kategori` (
-  `id_kategori` int(5) NOT NULL,
+  `id_kategori` int(5) NOT NULL AUTO_INCREMENT,
   `nama_kategori` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id_kategori`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `kategori`
---
+/*Data for the table `kategori` */
 
-INSERT INTO `kategori` (`id_kategori`, `nama_kategori`, `created_at`, `updated_at`) VALUES
-(1, 'Furniture', '2024-11-17 16:37:23', '2024-11-24 15:38:59'),
-(2, 'Elektronik', '2024-11-17 19:42:40', '0000-00-00 00:00:00');
+insert  into `kategori`(`id_kategori`,`nama_kategori`,`created_at`,`updated_at`) values 
+(1,'Furniture','2024-11-17 16:37:23','2024-11-24 15:38:59'),
+(2,'Elektronik','2024-11-17 19:42:40','0000-00-00 00:00:00');
 
--- --------------------------------------------------------
+/*Table structure for table `rfid` */
 
---
--- Struktur dari tabel `rfid`
---
+DROP TABLE IF EXISTS `rfid`;
 
 CREATE TABLE `rfid` (
   `no_aset` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `rfid`
---
+/*Data for the table `rfid` */
 
-INSERT INTO `rfid` (`no_aset`) VALUES
+insert  into `rfid`(`no_aset`) values 
 ('');
 
--- --------------------------------------------------------
+/*Table structure for table `riwayat_pengadaan` */
 
---
--- Struktur dari tabel `riwayat_pengadaan`
---
+DROP TABLE IF EXISTS `riwayat_pengadaan`;
 
 CREATE TABLE `riwayat_pengadaan` (
-  `id_riwayat_pengadaan` int(5) NOT NULL,
+  `id_riwayat_pengadaan` int(5) NOT NULL AUTO_INCREMENT,
   `kode_aset` varchar(100) NOT NULL,
   `stok` int(6) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_riwayat_pengadaan`),
+  KEY `fk_riwayat_pengadaan_kode_aset` (`kode_aset`),
+  CONSTRAINT `fk_riwayat_pengadaan_kode_aset` FOREIGN KEY (`kode_aset`) REFERENCES `aset` (`kode_aset`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
+/*Data for the table `riwayat_pengadaan` */
 
---
--- Struktur dari tabel `user`
---
+/*Table structure for table `user` */
+
+DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
-  `id` int(5) NOT NULL,
+  `id` int(5) NOT NULL AUTO_INCREMENT,
   `nama` varchar(150) DEFAULT NULL,
   `role` varchar(50) DEFAULT NULL,
   `username` varchar(200) NOT NULL,
-  `password` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `password` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `user`
---
+/*Data for the table `user` */
 
-INSERT INTO `user` (`id`, `nama`, `role`, `username`, `password`) VALUES
-(7, 'Ahmad Sanosi', 'Pimpinan', 'sanosi', '123'),
-(8, 'Afwa Fitrasya Muaja', 'Admin', 'afwa', '123');
+insert  into `user`(`id`,`nama`,`role`,`username`,`password`) values 
+(7,'Ahmad Sanosi','Pimpinan','sanosi','123'),
+(8,'Afwa Fitrasya Muaja','Admin','afwa','123');
 
---
--- Indexes for dumped tables
---
-
---
--- Indeks untuk tabel `aset`
---
-ALTER TABLE `aset`
-  ADD PRIMARY KEY (`id`,`kode_aset`),
-  ADD UNIQUE KEY `kode_aset_unique` (`kode_aset`),
-  ADD KEY `aset_kategori` (`id_kategori`);
-
---
--- Indeks untuk tabel `kategori`
---
-ALTER TABLE `kategori`
-  ADD PRIMARY KEY (`id_kategori`);
-
---
--- Indeks untuk tabel `riwayat_pengadaan`
---
-ALTER TABLE `riwayat_pengadaan`
-  ADD PRIMARY KEY (`id_riwayat_pengadaan`),
-  ADD KEY `fk_riwayat_pengadaan_kode_aset` (`kode_aset`);
-
---
--- Indeks untuk tabel `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT untuk tabel yang dibuang
---
-
---
--- AUTO_INCREMENT untuk tabel `aset`
---
-ALTER TABLE `aset`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
-
---
--- AUTO_INCREMENT untuk tabel `kategori`
---
-ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT untuk tabel `riwayat_pengadaan`
---
-ALTER TABLE `riwayat_pengadaan`
-  MODIFY `id_riwayat_pengadaan` int(5) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
---
-
---
--- Ketidakleluasaan untuk tabel `aset`
---
-ALTER TABLE `aset`
-  ADD CONSTRAINT `aset_kategori` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `riwayat_pengadaan`
---
-ALTER TABLE `riwayat_pengadaan`
-  ADD CONSTRAINT `fk_riwayat_pengadaan_kode_aset` FOREIGN KEY (`kode_aset`) REFERENCES `aset` (`kode_aset`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

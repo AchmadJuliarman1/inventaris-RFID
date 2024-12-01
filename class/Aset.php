@@ -82,7 +82,7 @@ class Aset{
 		$nilai_ekonomis = preg_replace("/\./", "", $data["nilai-ekonomis"]);
 		$umur_ekonomis = preg_replace("/\./", "", $data["umur-ekonomis"]);
 		$nilai_residu = preg_replace("/\./", "", $data["nilai-residu"]);
-		$biaya_penyusutan = ($data["nilai-ekonomis"] - $data["nilai-residu"]) / $data["umur-ekonomis"];
+		$biaya_penyusutan = ($nilai_ekonomis - $nilai_residu) / $umur_ekonomis;
 		$this->uploadGambar($file);
 		$file_name = $this->new_file_name;
 		$sql = "INSERT INTO aset (id, gambar, kode_aset, nama_aset, stok, id_kategori, tanggal_perolehan, nilai_ekonomis, nilai_residu, umur_ekonomis, biaya_penyusutan)
