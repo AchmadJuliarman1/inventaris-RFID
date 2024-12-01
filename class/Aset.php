@@ -88,6 +88,8 @@ class Aset{
 		$sql = "INSERT INTO aset (id, gambar, kode_aset, nama_aset, stok, id_kategori, tanggal_perolehan, nilai_ekonomis, nilai_residu, umur_ekonomis, biaya_penyusutan)
 		VALUES ('', '$file_name', '$kode_aset', '$nama_aset', '$stok', '$id_kategori', '$tanggal_perolehan', '$nilai_ekonomis', '$nilai_residu', '$umur_ekonomis', '$biaya_penyusutan')";
 
+		$sql2 = "UPDATE rfid set no_aset = ''";
+		mysqli_query($this->db->conn, $sql2);
 		if (mysqli_query($this->db->conn, $sql)) {
 	        if (mysqli_affected_rows($this->db->conn) > 0) {
 	            return 1;
