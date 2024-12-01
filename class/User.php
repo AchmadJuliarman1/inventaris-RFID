@@ -35,10 +35,6 @@ class User{
 		return 1;
 	}
 
-	function logout(){
-
-	}
-
 	function cariDataUser($keyword){
 		$sql = "SELECT * FROM user 
 		WHERE id LIKE '$keyword%' OR 
