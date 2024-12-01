@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Nov 2024 pada 09.42
+-- Waktu pembuatan: 01 Des 2024 pada 08.52
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -34,17 +34,18 @@ CREATE TABLE `aset` (
   `nama_aset` varchar(250) DEFAULT NULL,
   `stok` int(5) DEFAULT NULL,
   `id_kategori` int(5) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL
+  `tanggal_perolehan` date DEFAULT NULL,
+  `nilai_ekonomis` int(10) DEFAULT NULL,
+  `nilai_residu` int(10) DEFAULT NULL,
+  `umur_ekonomis` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `aset`
 --
 
-INSERT INTO `aset` (`id`, `gambar`, `kode_aset`, `nama_aset`, `stok`, `id_kategori`, `created_at`, `updated_at`) VALUES
-(24, 'gambar_20241124_125923.jpg', 'INV-67867862', 'asdasd', 123, 1, '2024-11-24 12:59:23', '0000-00-00 00:00:00'),
-(25, 'gambar_20241124_130259.jpg', 'INV-67867862123', 'asdasd', 12, 1, '2024-11-24 13:02:59', '0000-00-00 00:00:00');
+INSERT INTO `aset` (`id`, `gambar`, `kode_aset`, `nama_aset`, `stok`, `id_kategori`, `tanggal_perolehan`, `nilai_ekonomis`, `nilai_residu`, `umur_ekonomis`) VALUES
+(38, 'gambar_20241130_204041.png', 'INV-123', 'Kursi Gaming', 21, 2, '2024-11-05', 8000000, 1000000, 5);
 
 -- --------------------------------------------------------
 
@@ -82,7 +83,7 @@ CREATE TABLE `rfid` (
 --
 
 INSERT INTO `rfid` (`no_aset`) VALUES
-('67867862123');
+('');
 
 -- --------------------------------------------------------
 
@@ -116,8 +117,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `nama`, `role`, `username`, `password`) VALUES
-(2, 'Afwa Fitrasyah Muaja', 'Admin', 'afwa', '123'),
-(3, 'Ahmad Sanosi', 'Admin', 'sanosi', 'sanosi123');
+(7, 'Ahmad Sanosi', 'Pimpinan', 'sanosi', '123'),
+(8, 'Afwa Fitrasya Muaja', 'Admin', 'afwa', '123');
 
 --
 -- Indexes for dumped tables
@@ -158,13 +159,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `aset`
 --
 ALTER TABLE `aset`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_kategori` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat_pengadaan`
@@ -176,7 +177,7 @@ ALTER TABLE `riwayat_pengadaan`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
