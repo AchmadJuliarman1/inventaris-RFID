@@ -37,5 +37,4 @@
   </div>
 </div>
 
-
 <?php include_once LAYOUTS_PATH."footer.php";?>

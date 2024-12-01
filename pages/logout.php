@@ -29,5 +29,5 @@ Swal.fire({
 });
 setTimeout(function (){
 	window.location.href = "login.php";
-}, 1500);
+}, 2000);
 </script>

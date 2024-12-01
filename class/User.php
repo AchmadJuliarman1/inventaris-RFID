@@ -18,7 +18,7 @@ class User{
 			$_SESSION['username'] = 0;
 			return 0;
 		}else{
-			$sql = "SELECT * FROM user WHERE password = '$pass' ";
+			$sql = "SELECT * FROM user WHERE username = '$username' AND password = '$pass' ";
 			mysqli_query($this->db->conn, $sql);
 			$result = mysqli_affected_rows($this->db->conn);
 			if($result < 1){

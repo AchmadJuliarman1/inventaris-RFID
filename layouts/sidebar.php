@@ -85,6 +85,7 @@
             </div>
           </a>
         </li>
+        <?php if ($_SESSION['role'] == 'Pimpinan') : ?>
         <li class="nav-item mb-2">
           <a href="<?= PAGES_PATH ?>user/" class="nav-link <?= ($folder_name == "user" && $file_name != "profile.php") ? "active" : ""; ?>">
             <div class="d-flex align-items-center">
@@ -92,6 +93,7 @@
             </div>
           </a>
         </li>
+        <?php endif; ?>
         <li class="nav-item mb-2">
           <a href="<?= PAGES_PATH ?>kategori/" class="nav-link <?= $folder_name == "kategori" ? "active" : ""; ?>">
             <div class="d-flex align-items-center">
