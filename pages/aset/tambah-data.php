@@ -56,7 +56,10 @@ if(isset($_POST['submit'])){
 		</div class="mt-4">
 		<div class="mt-4">
 			<label for="umur_ekonomis" class="form-label">Umur Ekonomis</label>
-			<input type="text" class="form-control umur_ekonomis input-number" name="umur-ekonomis" required>
+			<div class="input-group">
+				<input type="text" class="form-control umur_ekonomis input-number" name="umur-ekonomis" required>
+				<span class="input-group-text">Tahun</span>
+			</div>
 		</div class="mt-4">
 		<div class="mt-4">
 			<label for="nilai_residu" class="form-label">Nilai Residu</label>

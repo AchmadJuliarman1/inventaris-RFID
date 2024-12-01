@@ -8,14 +8,25 @@ include_once CLASS_PATH."Kategori.php";
 $db = new Database("localhost", "root", "", "inventaris");
 $aset = new Aset($db);
 $kategori = new Kategori($db);
-$aset = $aset->tampilDataAset();
+$asets = $aset->tampilDataAset();
+if (isset($_POST["cari"])) {
+  $asets = $asets->cariDataAset($_POST["keyword"]);
+}
+
 ?>
 
 <!-- Main Content -->
+<div class="container">
   <div class="flex-grow-1 p-4">
     <div class="flex">
       <a href="<?= PAGES_PATH ?>aset/tambah-data.php" type="button" class="btn btn-primary btn-lg my-2">Tambah Aset</a>
     </div>
+    <form action="" method="post">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Cari Disini.." aria-label="Recipient's username" aria-describedby="button-addon2" name="keyword">
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2" name="cari"><i class="bi bi-search"></i></button>
+      </div>
+    </form>
     <table class="table table-hover table-bordered">
       <thead class="table-dark">
         <tr>
@@ -32,7 +43,7 @@ $aset = $aset->tampilDataAset();
         </tr>
       </thead>
       <tbody>
-      <?php foreach ($aset as $a) : ?>
+      <?php foreach ($asets as $a) : ?>
         <tr>
           <th scope="row"><?= $a['kode_aset']; ?></th>
           <td><?= $a['nama_aset']; ?></td>
@@ -40,10 +51,10 @@ $aset = $aset->tampilDataAset();
           <td><?= $nama_kategori; ?></td>
           <td><?= $a['stok']; ?></td>
           <td><?= $a['tanggal_perolehan']; ?></td>
-          <td><?= $a['nilai_ekonomis']; ?></td>
-          <td><?= $a['nilai_residu']; ?></td>
-          <td><?= $a['umur_ekonomis']; ?></td>
-          <td>(nilai ekonimis - nilai residu) ÷ umur ekonomis</td>
+          <td>Rp. <?= number_format($a['nilai_ekonomis'],0,",","."); ?></td>
+          <td>Rp. <?= number_format($a['nilai_residu'],0,",","."); ?></td>
+          <td><?= number_format($a['umur_ekonomis'],0,",","."); ?> tahun</td>
+          <td>Rp. <?= number_format(($a['nilai_ekonomis'] - $a['nilai_residu']) / $a['umur_ekonomis'],0,",",".") ?></td>
           <td>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-lihat" id="button-lihat"
             data-kode="<?= $a['kode_aset'] ?>" data-nama="<?= $a['nama_aset'] ?>"
@@ -60,7 +71,7 @@ $aset = $aset->tampilDataAset();
       </tbody>
     </table>
   </div>
-
+</div>
 <!-- Button trigger modal -->
 
 

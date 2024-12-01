@@ -79,7 +79,7 @@
         </li>
         <hr>
         <li class="nav-item mb-2">
-          <a href="<?= PAGES_PATH ?>aset/" class="nav-link <?= $folder_name == "aset" ? "active" : ""; ?>">
+          <a href="<?= PAGES_PATH ?>aset/" class="nav-link <?= ($folder_name == "aset" && $file_name != "cari-rfid.php") ? "active" : ""; ?>">
             <div class="d-flex align-items-center">
                 <img src="<?= ICONS_PATH ?>aset.png" style="width: 2vw ;"> <div class="px-1">Pengadaan</div>
             </div>
@@ -100,11 +100,18 @@
           </a>
         </li>
         <li class="nav-item mb-2">
+          <a href="<?= PAGES_PATH ?>aset/cari-rfid.php" class="nav-link <?= $file_name == "cari-rfid.php" ? "active" : ""; ?>">
+            <div class="d-flex align-items-center">
+              <img src="<?= ICONS_PATH ?>rfid.png" style="width: 2vw ;"> <div class="px-1">Cari Aset RFID</div>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item mb-2">
         <hr>
           <a href="<?= PAGES_PATH ?>user/profile.php" class="nav-link <?= $file_name == "profile.php" ? "active" : ""; ?>">
             <div class="d-flex align-items-center">
               <img src="<?= ICONS_PATH ?>profile.png" style="width: 2vw ;"> 
-              <div class="px-1"><?= $_SESSION['username'] ?></div>
+              <div class="px-1"><?= $_SESSION['nama'] ?></div>
             </div>
             <span class="badge text-bg-info"><?= $_SESSION['role'] ?></span>
           </a>

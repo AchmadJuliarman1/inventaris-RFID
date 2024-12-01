@@ -8,12 +8,25 @@ $db = new Database("localhost", "root", "", "inventaris");
 $user = new User($db);
 $users = $user->tampilDataUser();
 
+if (isset($_POST["cari"])) {
+  $users = $user->cariDataUser($_POST["keyword"]);
+}
+
+
 ?>
 <!-- Main Content -->
+<div class="container">
   <div class="flex p-4">
     <div class="flex">
       <a href="<?= PAGES_PATH ?>user/tambah-data.php" type="button" class="btn btn-primary btn-lg my-2">Tambah user</a>
     </div>
+    <!-- form search -->
+    <form action="" method="post">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Cari Disini.." aria-label="Recipient's username" aria-describedby="button-addon2" name="keyword">
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2" name="cari"><i class="bi bi-search"></i></button>
+      </div>
+    </form>
     <table class="table table-hover table-bordered">
       <thead class="table-dark">
         <tr>
@@ -31,16 +44,20 @@ $users = $user->tampilDataUser();
           <td><?= $u["username"] ?></td>
           <td><?= $u["nama"] ?></td>
           <td><?= $u["role"] ?></td>
+          <?php if($u['id'] != $_SESSION['id']) : ?>
           <td>
             <a href="<?= PAGES_PATH ?>user/ubah-data.php?id=<?= $u['id'] ?>&nama=<?= $u['nama'] ?>&username=<?= $u['username'] ?>&role=<?= $u['role'] ?>" type="button" class="btn btn-success my-2">Ubah</a>
             <a href="" type="button" class="btn btn-danger my-2 hapus" data-id="<?= $u["id"] ?>">Hapus</a>
           </td>
+          <?php else : ?>
+          <td><span class="badge text-bg-info">Anda</span></td>
+          <?php endif; ?>
         </tr>
       <?php endforeach; ?>
       </tbody>
     </table>
   </div>
-
+</div>
 <?php if(isset($_SESSION['tambah-user'])) : ?>
 <?php if($_SESSION['tambah-user'] == 1) { ?>
 <script>

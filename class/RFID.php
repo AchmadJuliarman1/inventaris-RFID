@@ -32,4 +32,18 @@ class RFID{
 	    $rfid = mysqli_fetch_all($result, MYSQLI_ASSOC); 
 	    return $rfid;
 	}
+
+	function hapusRFID(){
+		$sql = "UPDATE rfid set no_aset = ''";
+		
+		if (mysqli_query($this->db->conn, $sql)) {
+	        if (mysqli_affected_rows($this->db->conn) > 0) {
+	            return 1;
+	        } else {
+	            return 0;
+	        }
+	    } else {
+	        return "Error: " . mysqli_error($this->db->conn);
+	    }
+	}
 }

@@ -20,6 +20,21 @@ class Aset{
 	    return $aset;
 	}
 
+	function getAsetByKode($rfid){
+		$rfid = 'INV-'.$rfid;
+		$sql = "SELECT * FROM aset 
+		WHERE kode_aset = '$rfid'";
+		$result = mysqli_query($this->db->conn, $sql);
+
+		if (!$result) {
+            echo "Error: " . mysqli_error($this->db->conn);
+            return;
+        }
+
+        $aset = mysqli_fetch_all($result, MYSQLI_ASSOC); 
+	    return $aset;
+	}
+
 	function cariDataAset($keyword){
 		$sql = "SELECT * FROM aset 
 		WHERE kode_aset LIKE '%$keyword%' OR 
@@ -118,8 +133,6 @@ class Aset{
 	}
 
 	function hapusAset($id_aset, $gambar) {
-	    $id_aset = $id_aset;
-
 	    $sql = "DELETE FROM aset WHERE id = $id_aset";
 	    unlink(GAMBAR_PATH . $gambar);
 	    if (mysqli_query($this->db->conn, $sql)) {

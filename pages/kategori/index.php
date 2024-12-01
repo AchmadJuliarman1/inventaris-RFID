@@ -6,13 +6,23 @@ include_once CLASS_PATH."Kategori.php";
 
 $db = new Database("localhost", "root", "", "inventaris");
 $kategori = new Kategori($db);
-$kategori = $kategori->tampilDataKategori();
+$categories = $kategori->tampilDataKategori();
+if (isset($_POST["cari"])) {
+  $categories = $kategori->cariDataKategori($_POST["keyword"]);
+}
 ?>
 <!-- Main Content -->
+<div class="container">
   <div class="flex p-4">
     <div class="flex">
       <a href="<?= PAGES_PATH ?>kategori/tambah-data.php" type="button" class="btn btn-primary btn-lg my-2">Tambah Kategori</a>
     </div>
+    <form action="" method="post">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Cari Disini.." aria-label="Recipient's username" aria-describedby="button-addon2" name="keyword">
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2" name="cari"><i class="bi bi-search"></i></button>
+      </div>
+    </form>
     <table class="table table-hover table-bordered">
       <thead class="table-dark">
         <tr>
@@ -22,7 +32,7 @@ $kategori = $kategori->tampilDataKategori();
         </tr>
       </thead>
       <tbody>
-      <?php foreach ($kategori as $k) : ?>
+      <?php foreach ($categories as $k) : ?>
         <tr>
           <th scope="row"><?= $k["id_kategori"] ?></th>
           <td><?= $k["nama_kategori"] ?></td>
@@ -35,6 +45,7 @@ $kategori = $kategori->tampilDataKategori();
       </tbody>
     </table>
   </div>
+</div>
 <?php if(isset($_SESSION['tambah-kategori'])) : ?>
 <?php if($_SESSION['tambah-kategori'] == 1) { ?>
 <script>

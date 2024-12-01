@@ -39,6 +39,23 @@ class User{
 
 	}
 
+	function cariDataUser($keyword){
+		$sql = "SELECT * FROM user 
+		WHERE id LIKE '$keyword%' OR 
+		username LIKE '%$keyword%' OR
+		nama LIKE '%$keyword%' OR 
+		role LIKE '%$keyword%'";
+		$result = mysqli_query($this->db->conn, $sql);
+
+		if (!$result) {
+            echo "Error: " . mysqli_error($this->db->conn);
+            return;
+        }
+
+	    $aset = mysqli_fetch_all($result, MYSQLI_ASSOC); 
+	    return $aset;
+	}
+	
 	function tampilDataUser(){
 		$sql = "SELECT * FROM user";
 		$result = mysqli_query($this->db->conn, $sql);
@@ -97,8 +114,6 @@ class User{
 	}
 
 	function hapusUser($id) {
-	    $id = $id;
-
 	    $sql = "DELETE FROM user WHERE id = $id";
 
 	    if (mysqli_query($this->db->conn, $sql)) {
