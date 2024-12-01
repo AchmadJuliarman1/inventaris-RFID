@@ -5,7 +5,7 @@ include_once LAYOUTS_PATH."sidebar.php";
 ?>
 <?php ?>
 <div class="container d-flex justify-content-center">
-	
+
 </div>
 
 <script>
@@ -30,15 +30,29 @@ include_once LAYOUTS_PATH."sidebar.php";
                 	const stok = data[4];
                 	const id_kategori = data[5];
                 	const tanggal_perolehan = data[6];
-                	const nilai_ekonomis = data[7];
-                	const nilai_residu = data[8];
+                	const nilai_ekonomis = new Intl.NumberFormat('id-ID').format(data[7]);
+                	const nilai_residu = new Intl.NumberFormat('id-ID').format(data[8]);
                 	const umur_ekonomis = data[9];
                 	const nama_kategori = data[10];
-					const biaya_penyusutan = (nilai_ekonomis-nilai_residu)/umur_ekonomis;
-					console.log(biaya_penyusutan);
-                	$('.container').html(`<div class="card mt-4" style="width: 40vw;"><img src="../../layouts/gambar-aset/${gambar}" class="card-img-top" alt="..."><div class="card-body"><h5 class="card-title"><span class="badge rounded-pill text-bg-info">ID : ${id}</span></h5><ul class="list-group mt-3"><li class="list-group-item active" aria-current="true" id="kode">Kode Aset : ${kode_aset}</li><li class="list-group-item">Nama Aset : ${nama_aset}</li><li class="list-group-item">Stok : ${stok}</li><li class="list-group-item">Kategori : ${nama_kategori}</li><li class="list-group-item">Tanggal Perolehan : ${tanggal_perolehan}</li><li class="list-group-item">Nilai Ekonomis : ${nilai_ekonomis}</li><li class="list-group-item">Nilai Residu : ${nilai_residu}</li><li class="list-group-item">Umur Ekonomis : ${umur_ekonomis}</li><li class="list-group-item">Biaya Penyusutan : ${biaya_penyusutan}<span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-    <span class="visually-hidden">New alerts</span>
-  </span></li></ul></div></div>`);
+					let biaya_penyusutan = new Intl.NumberFormat('id-ID').format((data[7]-data[8])/data[9]);
+                	$('.container').html(`
+                		<div class="card mt-4" style="width: 40vw;">
+							<img src="../../layouts/gambar-aset/${gambar}" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title"><span class="badge rounded-pill text-bg-info"><b>ID : </b>${id}</span></h5>
+								<ul class="list-group mt-3">
+									<li class="list-group-item active" aria-current="true" id="kode"><b>Kode Aset : </b>${kode_aset}</li>
+									<li class="list-group-item"><b>Nama Aset : </b>${nama_aset}</li>
+									<li class="list-group-item"><b>Stok : </b>${stok}</li>
+									<li class="list-group-item"><b>Kategori : </b>${nama_kategori}</li>
+									<li class="list-group-item"><b>Tanggal Perolehan : </b>${tanggal_perolehan}</li>
+									<li class="list-group-item"><b>Nilai Ekonomis : </b>${nilai_ekonomis}</li>
+									<li class="list-group-item"><b>Nilai Residu : </b>${nilai_residu}</li>
+									<li class="list-group-item"><b>Umur Ekonomis : </b>${umur_ekonomis}</li>
+									<li class="list-group-item"><b>Biaya Penyusutan : </b>${biaya_penyusutan}</li>
+								</ul>
+							</div>
+						</div>`);
                 }else{
                 	$('.container').html('<div class="d-flex flex-column mt-4"><img src="<?= ICONS_PATH ?>rfid.png" class="card-img-top" style="width: 25vw;"><div class=" badge text-bg-primary align-items-center"><h3>Silahkan Tap RFID anda</h3></div></div>');
                 }
