@@ -12,12 +12,18 @@ $rfid = $rfid->getRFID()[0]["no_aset"];
 
 if($rfid != ''){
 	$aset = new Aset($db);
-	$aset = $aset->getAsetByKode($rfid)[0];
 
-	$kategori = new Kategori($db);
-	$kategori = $kategori->cariKategoriByID($aset['id_kategori'])[0]['nama_kategori'];
-	$aset[] = $kategori;
-	$aset = implode(',', $aset);
+	if($aset->getAsetByKode($rfid) != null){
+		$aset = $aset->getAsetByKode($rfid)[0];
+		$kategori = new Kategori($db);
+		$kategori = $kategori->cariKategoriByID($aset['id_kategori'])[0]['nama_kategori'];
+		$aset[] = $kategori;
+		$aset = implode(',', $aset);
+	}else{
+		$aset = '';
+	}
+
+	
 	echo $aset;
 
 }
