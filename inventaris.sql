@@ -25,7 +25,7 @@ CREATE TABLE `aset` (
   `gambar` varchar(200) DEFAULT NULL,
   `kode_aset` varchar(100) NOT NULL,
   `nama_aset` varchar(250) DEFAULT NULL,
-  `stok` int(5) DEFAULT NULL,
+  `jumlah_aset` int(5) DEFAULT NULL,
   `id_kategori` int(5) DEFAULT NULL,
   `tanggal_perolehan` date DEFAULT NULL,
   `nilai_ekonomis` int(10) DEFAULT NULL,
@@ -36,13 +36,14 @@ CREATE TABLE `aset` (
   UNIQUE KEY `kode_aset_unique` (`kode_aset`),
   KEY `aset_kategori` (`id_kategori`),
   CONSTRAINT `aset_kategori` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `aset` */
 
-insert  into `aset`(`id`,`gambar`,`kode_aset`,`nama_aset`,`stok`,`id_kategori`,`tanggal_perolehan`,`nilai_ekonomis`,`nilai_residu`,`umur_ekonomis`,`biaya_penyusutan`) values 
-(38,'gambar_20241130_204041.png','INV-123','Kursi Gaming',21,1,'2024-11-05',8000000,1000000,5,1400000),
-(39,'gambar_20241201_194804.png','INV-12312','SofaG',1,2,'2024-12-10',8000000,1000000,5,1400000);
+insert  into `aset`(`id`,`gambar`,`kode_aset`,`nama_aset`,`jumlah_aset`,`id_kategori`,`tanggal_perolehan`,`nilai_ekonomis`,`nilai_residu`,`umur_ekonomis`,`biaya_penyusutan`) values 
+(38,'gambar_20250211_203014.jpg','INV-123','Kursi Gaming',21,1,'2024-11-05',8000000,1000000,5,1400000),
+(39,'gambar_20241201_194804.png','INV-12312','SofaG',1,2,'2024-12-10',8000000,1000000,5,1400000),
+(41,'gambar_20241201_204352.png','INV-123111','asd',2,1,'2024-12-11',8000000,1000000,5,1400000);
 
 /*Table structure for table `kategori` */
 
