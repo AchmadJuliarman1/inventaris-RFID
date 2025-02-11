@@ -39,6 +39,7 @@ if (isset($_POST["cari"])) {
           <th scope="col">Nilai Ekonomis</th>
           <th scope="col">Nilai Residu</th>
           <th scope="col">Umur Ekonomis</th>
+          <th scope="col">Sisa Umur Ekonomis</th>
           <th scope="col">Biaya Penyusutan</th>
           <th scope="col">action</th>
         </tr>
@@ -54,7 +55,19 @@ if (isset($_POST["cari"])) {
           <td><?= $a['tanggal_perolehan']; ?></td>
           <td>Rp. <?= number_format($a['nilai_ekonomis'],0,",","."); ?></td>
           <td>Rp. <?= number_format($a['nilai_residu'],0,",","."); ?></td>
-          <td><?= number_format($a['umur_ekonomis'],0,",","."); ?> tahun</td>
+          <?php 
+            $tanggal_perolehan = new DateTime($a['tanggal_perolehan']);
+
+            $tgl_expired = clone $tanggal_perolehan;
+            $umur_ekonomis = $a['umur_ekonomis'];
+            $tgl_expired->modify("+$umur_ekonomis years");
+
+            $hari_ini = new DateTime();
+            $sisa_umur = $hari_ini->diff($tgl_expired);
+
+          ?>
+          <td><?= $a['umur_ekonomis'] ?> tahun</td>
+          <td><?= "{$sisa_umur->y} tahun, {$sisa_umur->m} bulan, {$sisa_umur->d} hari." ?></td>
           <td>Rp. <?= number_format($a['biaya_penyusutan'],0,",",".") ?></td>
           <td>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-lihat" id="button-lihat"
