@@ -16,7 +16,7 @@ $_SESSION['ubah-aset'] = 0;
 
 $kode_aset = $_GET['kode_aset'];
 $nama_aset = $_GET['nama_aset'];
-$stok = $_GET['stok'];
+$jumlah = $_GET['jumlah'];
 $id_aset = $_GET['id_aset'];
 $id_kategori = $_GET['id_kategori'];
 $tanggal_perolehan = $_GET['tanggal'];
@@ -41,6 +41,11 @@ if(isset($_POST['submit'])){
 		<script>
 			window.location.href = "index.php"
 		</script> ';
+	}else{
+		echo '
+		<script>
+			window.location.href = "index.php"
+		</script> ';
 	}
 }
  ?>
@@ -58,8 +63,8 @@ if(isset($_POST['submit'])){
 			<input type="text" class="form-control kode-aset" name="kode-aset" value="<?= $kode_aset ?>" readonly>
 		</div>
 		<div class="mt-4">
-			<label for="stok" class="form-label">Stok</label>
-			<input type="number" class="form-control stok" name="stok" value="<?= $stok ?>">
+			<label for="jumlah aset" class="form-label">Jumlah Aset</label>
+			<input type="number" class="form-control jumlah_aset" name="jumlah-aset" value="<?= $jumlah ?>">
 		</div class="mt-4">
 		<div class="mt-4">
 			<label for="stok" class="form-label">Kategori</label>

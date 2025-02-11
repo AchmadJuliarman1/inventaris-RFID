@@ -32,8 +32,8 @@ if(isset($_POST['submit'])){
 			<input type="text" class="form-control kode-aset" name="kode-aset" readonly required>
 		</div>
 		<div class="mt-4">
-			<label for="stok" class="form-label">Stok</label>
-			<input type="text" class="form-control stok input-number" name="stok" required>
+			<label for="Jumlah Aset" class="form-label">Jumlah Aset</label>
+			<input type="text" class="form-control jumlah_aset input-number" name="jumlah-aset" required>
 		</div class="mt-4">
 		<div class="mt-4">
 			<label for="stok" class="form-label">Kategori</label>
@@ -68,7 +68,7 @@ if(isset($_POST['submit'])){
 
 		<div class="mt-4 mb-2">
 			<label for="formFileSm" class="form-label">Select image to upload</label>
-  			<input class="form-control form-control-sm" id="formFileSm" type="file" name="gambar" required>
+  			<input class="form-control form-control-sm" id="formFileSm" type="file" name="gambar">
 		</div>
 		<button type="submit" class="btn btn-primary" name="submit">Submit</button>
 	</form>

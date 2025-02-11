@@ -34,7 +34,7 @@ if (isset($_POST["cari"])) {
           <th scope="col">Kode Aset</th>
           <th scope="col">Nama Aset</th>
           <th scope="col">Kategori Aset</th>
-          <th scope="col">Stok</th>
+          <th scope="col">Jumlah Aset</th>
           <th scope="col">Tanggal Perolehan</th>
           <th scope="col">Nilai Ekonomis</th>
           <th scope="col">Nilai Residu</th>
@@ -50,7 +50,7 @@ if (isset($_POST["cari"])) {
           <td><?= $a['nama_aset']; ?></td>
           <?php $nama_kategori =  $kategori->cariKategoriByID($a['id_kategori'])[0]["nama_kategori"];?>
           <td><?= $nama_kategori; ?></td>
-          <td><?= $a['stok']; ?></td>
+          <td><?= $a['jumlah_aset']; ?></td>
           <td><?= $a['tanggal_perolehan']; ?></td>
           <td>Rp. <?= number_format($a['nilai_ekonomis'],0,",","."); ?></td>
           <td>Rp. <?= number_format($a['nilai_residu'],0,",","."); ?></td>
@@ -59,13 +59,13 @@ if (isset($_POST["cari"])) {
           <td>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-lihat" id="button-lihat"
             data-kode="<?= $a['kode_aset'] ?>" data-nama="<?= $a['nama_aset'] ?>"
-            data-kategori="<?= $nama_kategori ?>" data-stok="<?= $a['stok'] ?>"
+            data-kategori="<?= $nama_kategori ?>" data-jumlah="<?= $a['jumlah_aset'] ?>"
             data-tanggal="<?= $a['tanggal_perolehan'] ?>" data-gambar="<?= $a['gambar'] ?>"
             data-nilai-ekonomis="<?= $a['nilai_ekonomis'] ?>" data-nilai-residu="<?= $a['nilai_residu'] ?>"
             data-biaya-penyusutan="<?= $a['biaya_penyusutan'] ?>" data-umur-ekonomis="<?= $a['umur_ekonomis'] ?>">
               lihat
             </button>
-            <a href="<?= PAGES_PATH ?>aset/ubah-data.php?kode_aset=<?= $a["kode_aset"]; ?>&nama_aset=<?= $a["nama_aset"]; ?>&stok=<?= $a["stok"]; ?>&tanggal=<?= $a["tanggal_perolehan"]; ?>&id_aset=<?= $a['id'] ?>&id_kategori=<?= $a['id_kategori'] ?>&nilai_ekonomis=<?= $a['nilai_ekonomis'] ?>&nilai_residu=<?= $a['nilai_residu'] ?>&umur_ekonomis=<?= $a['umur_ekonomis'] ?>&gambar=<?= $a['gambar'] ?>" 
+            <a href="<?= PAGES_PATH ?>aset/ubah-data.php?kode_aset=<?= $a["kode_aset"]; ?>&nama_aset=<?= $a["nama_aset"]; ?>&jumlah=<?= $a["jumlah_aset"]; ?>&tanggal=<?= $a["tanggal_perolehan"]; ?>&id_aset=<?= $a['id'] ?>&id_kategori=<?= $a['id_kategori'] ?>&nilai_ekonomis=<?= $a['nilai_ekonomis'] ?>&nilai_residu=<?= $a['nilai_residu'] ?>&umur_ekonomis=<?= $a['umur_ekonomis'] ?>&gambar=<?= $a['gambar'] ?>" 
             type="button" class="btn btn-success my-2">Ubah</a>
             <a href="" type="button" class="btn btn-danger my-2 hapus" data-id="<?= $a['id'] ?>" data-gambar="<?= $a['gambar'] ?>">Hapus</a>
           </td>
@@ -91,7 +91,7 @@ if (isset($_POST["cari"])) {
           <li class="list-group-item active" aria-current="true" id="kode"></li>
           <li class="list-group-item" id="nama"></li>
           <li class="list-group-item" id="kategori"></li>
-          <li class="list-group-item" id="stok"></li>
+          <li class="list-group-item" id="jumlah"></li>
           <li class="list-group-item" id="tanggal"></li>
           <li class="list-group-item" id="nilai_ekonomis"></li>
           <li class="list-group-item" id="nilai_residu"></li>
@@ -113,7 +113,7 @@ $(document).ready(function(){
     const kode = $(this).data('kode');
     const nama = $(this).data('nama');
     const kategori = $(this).data('kategori');
-    const stok = $(this).data('stok');
+    const jumlah = $(this).data('jumlah');
     const tanggal = $(this).data('tanggal');
     const gambar = $(this).data('gambar');
     const umur_ekonomis = $(this).data('umur-ekonomis');
@@ -124,7 +124,7 @@ $(document).ready(function(){
     $('#modal-lihat #kode').html('<b>KODE ASET : </b>'+kode);
     $('#modal-lihat #nama').html('<b>Nama Aset : </b>'+nama);
     $('#modal-lihat #kategori').html('<b>Kategori : </b>'+kategori);
-    $('#modal-lihat #stok').html('<b>Stok : </b>'+stok);
+    $('#modal-lihat #jumlah').html('<b>Jumlah Aset : </b>'+jumlah);
     $('#modal-lihat #tanggal').html('<b>Tanggal Perolehan : </b>'+tanggal);
     $('#modal-lihat #nilai_ekonomis').html('<b>Nilai Ekonomis : </b>'+nilai_ekonomis);
     $('#modal-lihat #nilai_residu').html('<b>Nilai Residu : </b>'+nilai_residu);

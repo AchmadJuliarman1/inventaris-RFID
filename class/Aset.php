@@ -41,7 +41,7 @@ class Aset{
 		INNER JOIN kategori ON aset.id_kategori=kategori.id_kategori
 		WHERE kode_aset LIKE '%$keyword%' OR 
 		nama_aset LIKE '%$keyword%' OR
-		stok LIKE '%$keyword%' OR 
+		jumlah_aset LIKE '%$keyword%' OR 
 		nama_kategori LIKE '%$keyword%' OR
 		tanggal_perolehan LIKE '%$keyword%' OR
 		umur_ekonomis LIKE '%$keyword%' OR
@@ -76,7 +76,7 @@ class Aset{
 	function tambahAset($data, $file){
 		$kode_aset = $data["kode-aset"];
 		$nama_aset = $data["nama-aset"];
-		$stok = preg_replace("/\./", "", $data["stok"]);
+		$jumlah_aset = preg_replace("/\./", "", $data["jumlah-aset"]);
 		$id_kategori = $data["id-kategori"];
 		$tanggal_perolehan = $data["tanggal-perolehan"];
 		$nilai_ekonomis = preg_replace("/\./", "", $data["nilai-ekonomis"]);
@@ -85,8 +85,8 @@ class Aset{
 		$biaya_penyusutan = ($nilai_ekonomis - $nilai_residu) / $umur_ekonomis;
 		$this->uploadGambar($file);
 		$file_name = $this->new_file_name;
-		$sql = "INSERT INTO aset (id, gambar, kode_aset, nama_aset, stok, id_kategori, tanggal_perolehan, nilai_ekonomis, nilai_residu, umur_ekonomis, biaya_penyusutan)
-		VALUES ('', '$file_name', '$kode_aset', '$nama_aset', '$stok', '$id_kategori', '$tanggal_perolehan', '$nilai_ekonomis', '$nilai_residu', '$umur_ekonomis', '$biaya_penyusutan')";
+		$sql = "INSERT INTO aset (id, gambar, kode_aset, nama_aset, jumlah_aset, id_kategori, tanggal_perolehan, nilai_ekonomis, nilai_residu, umur_ekonomis, biaya_penyusutan)
+		VALUES ('', '$file_name', '$kode_aset', '$nama_aset', '$jumlah_aset', '$id_kategori', '$tanggal_perolehan', '$nilai_ekonomis', '$nilai_residu', '$umur_ekonomis', '$biaya_penyusutan')";
 
 		$sql2 = "UPDATE rfid set no_aset = ''";
 		mysqli_query($this->db->conn, $sql2);
@@ -105,7 +105,7 @@ class Aset{
 	    $id_aset = $data["id-aset"];       
 	    $kode_aset = $data["kode-aset"];
 	    $nama_aset = $data["nama-aset"];
-	    $stok = $data["stok"];
+	    $jumlah_aset = $data["jumlah-aset"];
 	    $id_kategori = $data["id-kategori"];
 	    $tanggal_perolehan = $data["tanggal-perolehan"];
 		$nilai_ekonomis = preg_replace("/\./", "", $data["nilai-ekonomis"]);
@@ -122,7 +122,7 @@ class Aset{
 	    $sql = "UPDATE aset 
 	            SET kode_aset = '$kode_aset', 
 	                nama_aset = '$nama_aset', 
-	                stok = '$stok', 
+	                jumlah_aset = '$jumlah_aset', 
 	                id_kategori = '$id_kategori', 
 	                tanggal_perolehan = '$tanggal_perolehan', 
 	                nilai_ekonomis = '$nilai_ekonomis', 
