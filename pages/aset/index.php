@@ -36,6 +36,7 @@ if (isset($_POST["cari"])) {
           <th scope="col">Kategori Aset</th>
           <th scope="col">Jumlah Aset</th>
           <th scope="col">Tanggal Perolehan</th>
+          <th scope="col">Tanggal Monitoring</th>
           <th scope="col">Nilai Ekonomis</th>
           <th scope="col">Nilai Residu</th>
           <th scope="col">Umur Ekonomis</th>
@@ -53,17 +54,32 @@ if (isset($_POST["cari"])) {
           <td><?= $nama_kategori; ?></td>
           <td><?= $a['jumlah_aset']; ?></td>
           <td><?= $a['tanggal_perolehan']; ?></td>
+          <td>
+
+            <?php if($a['tanggal_monitoring'] == '') : ?>
+              <span class="badge text-bg-info"> - </span>
+            <?php else : ?>
+              <?php 
+                echo $a['tanggal_monitoring'];
+              ?>  
+            <?php endif; ?>
+          </td>
           <td>Rp. <?= number_format($a['nilai_ekonomis'],0,",","."); ?></td>
           <td>Rp. <?= number_format($a['nilai_residu'],0,",","."); ?></td>
           <?php 
             $tanggal_perolehan = new DateTime($a['tanggal_perolehan']);
-
-            $tgl_expired = clone $tanggal_perolehan;
+            $tanggal_monitoring = new DateTime($a['tanggal_monitoring']);
             $umur_ekonomis = $a['umur_ekonomis'];
-            $tgl_expired->modify("+$umur_ekonomis years");
 
+            if ($a['tanggal_monitoring'] != NULL) {
+              $tgl_expired = $tanggal_monitoring;
+            }else{
+              $tgl_expired = $tanggal_perolehan;
+            }
+
+            $tgl_expired->modify("+$umur_ekonomis years");
             $hari_ini = new DateTime();
-            $sisa_umur = $hari_ini->diff($tgl_expired);
+            $sisa_umur = $tgl_expired->diff($hari_ini);
 
           ?>
           <td><?= $a['umur_ekonomis'] ?> tahun</td>
@@ -111,6 +127,10 @@ if (isset($_POST["cari"])) {
           <li class="list-group-item" id="umur_ekonomis"></li>
           <li class="list-group-item" id="biaya_penyusutan"></li>
         </ul>
+      <div>
+        <a href="monitoring-aset.php?" type="button" class="btn btn-primary my-2" id="monitoring">Lakukan Monitoring</a>
+      </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -144,6 +164,7 @@ $(document).ready(function(){
     $('#modal-lihat #biaya_penyusutan').html('<b>Biaya : </b>'+biaya_penyusutan);
     $('#modal-lihat #umur_ekonomis').html('<b>Biaya : </b>'+umur_ekonomis);
     $('#modal-lihat #gambar').attr("src", '../../layouts/gambar-aset/'+gambar);
+    $('#modal-lihat #monitoring').attr("href", 'monitoring-aset.php?kode='+kode);
   });
 });
 

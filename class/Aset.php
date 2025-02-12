@@ -83,8 +83,13 @@ class Aset{
 		$umur_ekonomis = preg_replace("/\./", "", $data["umur-ekonomis"]);
 		$nilai_residu = preg_replace("/\./", "", $data["nilai-residu"]);
 		$biaya_penyusutan = ($nilai_ekonomis - $nilai_residu) / $umur_ekonomis;
-		$this->uploadGambar($file);
-		$file_name = $this->new_file_name;
+		if($file['gambar']['name'] != ''){
+			$this->uploadGambar($file);
+			$file_name = $this->new_file_name;
+		}else{
+			$file_name = "";
+
+		}
 		$sql = "INSERT INTO aset (id, gambar, kode_aset, nama_aset, jumlah_aset, id_kategori, tanggal_perolehan, nilai_ekonomis, nilai_residu, umur_ekonomis, biaya_penyusutan)
 		VALUES ('', '$file_name', '$kode_aset', '$nama_aset', '$jumlah_aset', '$id_kategori', '$tanggal_perolehan', '$nilai_ekonomis', '$nilai_residu', '$umur_ekonomis', '$biaya_penyusutan')";
 
@@ -145,7 +150,9 @@ class Aset{
 
 	function hapusAset($id_aset, $gambar) {
 	    $sql = "DELETE FROM aset WHERE id = $id_aset";
-	    unlink(GAMBAR_PATH . $gambar);
+	    if($gambar != ''){
+	    	unlink(GAMBAR_PATH . $gambar);
+	    }
 	    if (mysqli_query($this->db->conn, $sql)) {
 	        if (mysqli_affected_rows($this->db->conn) > 0) {
 	            return 1;
@@ -173,4 +180,24 @@ class Aset{
 		}
 	}
 
+	function monitoringAset($data){
+		$kode_aset = $data['kode-aset'];
+		$umur_ekonomis = $data['umur-ekonomis'];
+		$tanggal_monitoring = $data['tanggal-monitoring'];
+
+		$sql = "UPDATE aset 
+	            SET tanggal_monitoring = '$tanggal_monitoring', 
+	                umur_ekonomis = '$umur_ekonomis'
+	            WHERE kode_aset = '$kode_aset'";
+
+	    if (mysqli_query($this->db->conn, $sql)) {
+	        if (mysqli_affected_rows($this->db->conn) > 0) {
+	            return 1;
+	        } else {
+	            return 0;
+	        }
+	    } else {
+	        return "Error: " . mysqli_error($this->db->conn);
+	    }
+	}
 }

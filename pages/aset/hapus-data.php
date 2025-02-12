@@ -8,6 +8,8 @@ $aset = new Aset($db);
 
 $_SESSION['hapus-aset'] = 0;
 $gambar = $aset->getAsetById($_GET['id'])[0]["gambar"];
+var_dump($gambar);
+// die();
 if($aset->hapusAset($_GET['id'], $gambar) == 1){
 	$_SESSION['hapus-aset'] = 1;
 }
