@@ -1,6 +1,6 @@
 <?php 
 include_once $_SERVER['DOCUMENT_ROOT']."/inventaris RFID/layouts/header.php";
-// include_once LAYOUTS_PATH."sidebar.php"; 
+include_once LAYOUTS_PATH."sidebar.php"; 
 include_once CLASS_PATH."Database.php";
 include_once CLASS_PATH."Aset.php"; 
 include_once CLASS_PATH."Kategori.php"; 
