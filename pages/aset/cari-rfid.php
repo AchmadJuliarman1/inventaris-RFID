@@ -27,14 +27,15 @@ include_once LAYOUTS_PATH."sidebar.php";
                 	const gambar = data[1];
                 	const kode_aset = data[2];
                 	const nama_aset = data[3];
-                	const stok = data[4];
+                	const jumlah_aset = data[4];
                 	const id_kategori = data[5];
                 	const tanggal_perolehan = data[6];
-                	const nilai_ekonomis = new Intl.NumberFormat('id-ID').format(data[7]);
-                	const nilai_residu = new Intl.NumberFormat('id-ID').format(data[8]);
-                	const umur_ekonomis = data[9];
-                	const nama_kategori = data[10];
-					let biaya_penyusutan = new Intl.NumberFormat('id-ID').format((data[7]-data[8])/data[9]);
+                	const tanggal_monitoring = data[7];
+                	const nilai_ekonomis = new Intl.NumberFormat('id-ID').format(data[8]);
+                	const nilai_residu = new Intl.NumberFormat('id-ID').format(data[9]);
+                	const umur_ekonomis = data[10];
+                	const nama_kategori = data[12];
+					let biaya_penyusutan = new Intl.NumberFormat('id-ID').format((data[8]-data[9])/data[10]);
                 	$('.container').html(`
                 		<div class="card mt-4" style="width: 40vw;">
 							<img src="../../layouts/gambar-aset/${gambar}" class="card-img-top" alt="...">
@@ -43,9 +44,10 @@ include_once LAYOUTS_PATH."sidebar.php";
 								<ul class="list-group mt-3">
 									<li class="list-group-item active" aria-current="true" id="kode"><b>Kode Aset : </b>${kode_aset}</li>
 									<li class="list-group-item"><b>Nama Aset : </b>${nama_aset}</li>
-									<li class="list-group-item"><b>Stok : </b>${stok}</li>
+									<li class="list-group-item"><b>Jumlah Aset : </b>${jumlah_aset}</li>
 									<li class="list-group-item"><b>Kategori : </b>${nama_kategori}</li>
 									<li class="list-group-item"><b>Tanggal Perolehan : </b>${tanggal_perolehan}</li>
+									<li class="list-group-item"><b>Tanggal Monitoring : </b>${tanggal_perolehan}</li>
 									<li class="list-group-item"><b>Nilai Ekonomis : </b>${nilai_ekonomis}</li>
 									<li class="list-group-item"><b>Nilai Residu : </b>${nilai_residu}</li>
 									<li class="list-group-item"><b>Umur Ekonomis : </b>${umur_ekonomis}</li>
