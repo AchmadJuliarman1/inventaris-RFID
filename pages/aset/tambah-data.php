@@ -77,31 +77,49 @@ if(isset($_POST['submit'])){
 
 
 <script type="text/javascript">
+	let alertTersedia = false; // Variabel flag tetap tersimpan
+	let alertDetected = false;
+
     $(document).ready(function() {
-        setInterval(load, 1000); // Call the load function when the page loads
-    });
+	    setInterval(load, 1000);
+	});
 
-    function load() {
-        // Use jQuery's $.ajax() method to make the GET request
-        $.ajax({
-            url: 'data-rfid.php',   // URL to your PHP script
-            type: 'GET',            // HTTP method
-            success: function(response) {
-                // On success, set the response data into the input field with id 'no_aset'
-                if(response != ''){
-                	$('.kode-aset').val('INV-'+response);
-                }else{
-                	$('.kode-aset').val('INV-');
+	function load() {
+	    $.ajax({
+	        url: 'data-rfid.php',   
+	        type: 'GET',            
+	        success: function(response) {
+	            if (response !== 'RFID tersebut sudah tersedia') {
+	                $('.kode-aset').val('INV-' + response);
+	                if (alertDetected == false) { // Hanya jalankan Swal jika alert belum pernah muncul
+	                    Swal.fire({
+						  title: "RFID detected",
+						  text: "You clicked the button!",
+						  icon: "success"
+						});
+	                    alertDetected = true; // Set flag agar alert tidak muncul lagi
+	                }
+	                alertTersedia = false; // Reset flag jika data valid
+	            } else {
+	                $('.kode-aset').val('INV-');
 
-                }
-                console.log(response);
-            },
-            error: function(xhr, status, error) {
-                // In case of error, log the error to the console
-                console.error('AJAX request failed: ' + error);
-            }
-        });
-    }
+	                if (alertTersedia == false) { // Hanya jalankan Swal jika alert belum pernah muncul
+	                    Swal.fire({
+	                        icon: "error",
+	                        title: "RFID tersebut sudah tersedia",
+	                        text: "Something went wrong!"
+	                    });
+	                    alertTersedia = true; // Set flag agar alert tidak muncul lagi
+	                }
+	            }
+	            console.log(response);
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('AJAX request failed: ' + error);
+	        }
+	    });
+	}
+
 
     flatpickr("#tanggal_perolehan", {});
 
@@ -114,6 +132,9 @@ if(isset($_POST['submit'])){
 	      input.value = value;
 	    });
 	});
+
+
+	
 </script>
 
 
