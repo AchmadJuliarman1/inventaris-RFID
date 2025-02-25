@@ -12,10 +12,10 @@ $aset = new Aset($db);
 if($aset->getAsetByKode($no_aset) != null){
 	if($aset->getAsetByKode($no_aset)[0]['kode_aset'] == 'INV-'.$no_aset){
 		echo 'RFID tersebut sudah tersedia';
+		$rfid->hapusRFID();
 	}
 }else{
 	echo $no_aset;
+	$rfid->hapusRFID();
 }
-
-
- ?>
+?>

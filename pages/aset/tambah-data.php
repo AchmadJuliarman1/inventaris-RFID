@@ -79,6 +79,7 @@ if(isset($_POST['submit'])){
 <script type="text/javascript">
 	let alertTersedia = false; // Variabel flag tetap tersimpan
 	let alertDetected = false;
+	let lastRFID = "";
 
     $(document).ready(function() {
 	    setInterval(load, 1000);
@@ -89,8 +90,12 @@ if(isset($_POST['submit'])){
 	        url: 'data-rfid.php',   
 	        type: 'GET',            
 	        success: function(response) {
-	            if (response !== 'RFID tersebut sudah tersedia') {
-	                $('.kode-aset').val('INV-' + response);
+	            if (response !== 'RFID tersebut sudah tersedia' && response != '') {
+	            	if(lastRFID != response && response != ''){
+	            		lastRFID = response;
+	            	}
+	            	
+	                $('.kode-aset').val('INV-' + lastRFID);
 	                if (alertDetected == false) { // Hanya jalankan Swal jika alert belum pernah muncul
 	                    Swal.fire({
 						  title: "RFID detected",
@@ -98,19 +103,22 @@ if(isset($_POST['submit'])){
 						  icon: "success"
 						});
 	                    alertDetected = true; // Set flag agar alert tidak muncul lagi
+	                    alertTersedia = false;
 	                }
-	                alertTersedia = false; // Reset flag jika data valid
 	            } else {
-	                $('.kode-aset').val('INV-');
-
-	                if (alertTersedia == false) { // Hanya jalankan Swal jika alert belum pernah muncul
-	                    Swal.fire({
-	                        icon: "error",
-	                        title: "RFID tersebut sudah tersedia",
-	                        text: "Something went wrong!"
-	                    });
-	                    alertTersedia = true; // Set flag agar alert tidak muncul lagi
-	                }
+	            	if(response != ''){
+	            		$('.kode-aset').val('INV-');
+		                if (alertTersedia == false) { // Hanya jalankan Swal jika alert belum pernah muncul
+		                    Swal.fire({
+		                        icon: "error",
+		                        title: "RFID tersebut sudah tersedia",
+		                        text: "Something went wrong!"
+		                    });
+		                    alertTersedia = true; // Set flag agar alert tidak muncul lagi
+		                    alertDetected = false;
+		                }
+	            	}
+	            	
 	            }
 	            console.log(response);
 	        },
@@ -119,7 +127,6 @@ if(isset($_POST['submit'])){
 	        }
 	    });
 	}
-
 
     flatpickr("#tanggal_perolehan", {});
 
