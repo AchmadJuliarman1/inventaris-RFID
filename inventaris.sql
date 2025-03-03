@@ -21,7 +21,6 @@ USE `inventaris`;
 DROP TABLE IF EXISTS `aset`;
 
 CREATE TABLE `aset` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
   `gambar` varchar(200) DEFAULT NULL,
   `kode_aset` varchar(100) NOT NULL,
   `nama_aset` varchar(250) DEFAULT NULL,
@@ -33,19 +32,12 @@ CREATE TABLE `aset` (
   `nilai_residu` int(10) DEFAULT NULL,
   `umur_ekonomis` int(3) DEFAULT NULL,
   `biaya_penyusutan` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id`,`kode_aset`),
-  UNIQUE KEY `kode_aset_unique` (`kode_aset`),
+  PRIMARY KEY (`kode_aset`),
   KEY `aset_kategori` (`id_kategori`),
   CONSTRAINT `aset_kategori` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `aset` */
-
-insert  into `aset`(`id`,`gambar`,`kode_aset`,`nama_aset`,`jumlah_aset`,`id_kategori`,`tanggal_perolehan`,`tanggal_monitoring`,`nilai_ekonomis`,`nilai_residu`,`umur_ekonomis`,`biaya_penyusutan`) values 
-(38,'gambar_20250211_203014.jpg','INV-123','Kursi Gaming',21,1,'2024-11-01','2025-02-13',8000000,1000000,5,1400000),
-(39,'gambar_20241201_194804.png','INV-12312','SofaG',1,2,'2024-12-10',NULL,8000000,1000000,5,1400000),
-(41,'gambar_20241201_204352.png','INV-123111','asd',2,1,'2024-12-11','2025-02-12',8000000,1000000,6,1400000),
-(50,'','INV-','asd',123,2,'2025-02-13',NULL,12,12,4,0);
 
 /*Table structure for table `kategori` */
 
@@ -76,7 +68,7 @@ CREATE TABLE `rfid` (
 /*Data for the table `rfid` */
 
 insert  into `rfid`(`no_aset`) values 
-('INV-12312');
+('');
 
 /*Table structure for table `riwayat_pengadaan` */
 

@@ -88,10 +88,9 @@ class Aset{
 			$file_name = $this->new_file_name;
 		}else{
 			$file_name = "";
-
 		}
-		$sql = "INSERT INTO aset (id, gambar, kode_aset, nama_aset, jumlah_aset, id_kategori, tanggal_perolehan, nilai_ekonomis, nilai_residu, umur_ekonomis, biaya_penyusutan)
-		VALUES ('', '$file_name', '$kode_aset', '$nama_aset', '$jumlah_aset', '$id_kategori', '$tanggal_perolehan', '$nilai_ekonomis', '$nilai_residu', '$umur_ekonomis', '$biaya_penyusutan')";
+		$sql = "INSERT INTO aset (gambar, kode_aset, nama_aset, jumlah_aset, id_kategori, tanggal_perolehan, nilai_ekonomis, nilai_residu, umur_ekonomis, biaya_penyusutan)
+		VALUES ('$file_name', '$kode_aset', '$nama_aset', '$jumlah_aset', '$id_kategori', '$tanggal_perolehan', '$nilai_ekonomis', '$nilai_residu', '$umur_ekonomis', '$biaya_penyusutan')";
 
 		$sql2 = "UPDATE rfid set no_aset = ''";
 		mysqli_query($this->db->conn, $sql2);
@@ -106,8 +105,7 @@ class Aset{
 	    }
 	}
 
-	function ubahAset($data, $gambar) {
-	    $id_aset = $data["id-aset"];       
+	function ubahAset($data, $gambar) {    
 	    $kode_aset = $data["kode-aset"];
 	    $nama_aset = $data["nama-aset"];
 	    $jumlah_aset = $data["jumlah-aset"];
@@ -125,8 +123,7 @@ class Aset{
 			$filename = $data["gambar-lama"];
 		}
 	    $sql = "UPDATE aset 
-	            SET kode_aset = '$kode_aset', 
-	                nama_aset = '$nama_aset', 
+	            SET nama_aset = '$nama_aset', 
 	                jumlah_aset = '$jumlah_aset', 
 	                id_kategori = '$id_kategori', 
 	                tanggal_perolehan = '$tanggal_perolehan', 
@@ -135,7 +132,7 @@ class Aset{
 	                nilai_residu = '$nilai_residu',
 	                biaya_penyusutan = '$biaya_penyusutan', 
 	                gambar = '$filename' 
-	            WHERE id = '$id_aset'";
+	            WHERE kode_aset = '$kode_aset'";
 
 	    if (mysqli_query($this->db->conn, $sql)) {
 	        if (mysqli_affected_rows($this->db->conn) > 0) {
@@ -148,8 +145,8 @@ class Aset{
 	    }
 	}
 
-	function hapusAset($id_aset, $gambar) {
-	    $sql = "DELETE FROM aset WHERE id = $id_aset";
+	function hapusAset($kode, $gambar) {
+	    $sql = "DELETE FROM aset WHERE kode_aset = '$kode'";
 	    if($gambar != ''){
 	    	unlink(GAMBAR_PATH . $gambar);
 	    }

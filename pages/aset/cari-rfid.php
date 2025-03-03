@@ -23,24 +23,23 @@ include_once LAYOUTS_PATH."sidebar.php";
                 if(response != ''){
                 	const data = response.split(',');
                 	console.log(response);
-                	const id = data[0];
-                	const gambar = data[1];
-                	const kode_aset = data[2];
-                	const nama_aset = data[3];
-                	const jumlah_aset = data[4];
-                	const id_kategori = data[5];
-                	const tanggal_perolehan = data[6];
-                	const tanggal_monitoring = data[7];
-                	const nilai_ekonomis = new Intl.NumberFormat('id-ID').format(data[8]);
-                	const nilai_residu = new Intl.NumberFormat('id-ID').format(data[9]);
-                	const umur_ekonomis = data[10];
-                	const nama_kategori = data[12];
-					let biaya_penyusutan = new Intl.NumberFormat('id-ID').format((data[8]-data[9])/data[10]);
+                	const gambar = data[0];
+                	const kode_aset = data[1];
+                	const nama_aset = data[2];
+                	const jumlah_aset = data[3];
+                	const id_kategori = data[4];
+                	const tanggal_perolehan = data[5];
+                	const tanggal_monitoring = data[6];
+                	const nilai_ekonomis = new Intl.NumberFormat('id-ID').format(data[7]);
+                	const nilai_residu = new Intl.NumberFormat('id-ID').format(data[8]);
+                	const umur_ekonomis = data[9];
+                	const nama_kategori = data[11];
+					let biaya_penyusutan = new Intl.NumberFormat('id-ID').format((data[7]-data[8])/data[9]);
                 	$('.container').html(`
                 		<div class="card mt-4" style="width: 40vw;">
 							<img src="../../layouts/gambar-aset/${gambar}" class="card-img-top" alt="...">
 							<div class="card-body">
-								<h5 class="card-title"><span class="badge rounded-pill text-bg-info"><b>ID : </b>${id}</span></h5>
+								<h5 class="card-title"><span class="badge rounded-pill text-bg-info"><b>Kode Aset : </b>${kode_aset}</span></h5>
 								<ul class="list-group mt-3">
 									<li class="list-group-item active" aria-current="true" id="kode"><b>Kode Aset : </b>${kode_aset}</li>
 									<li class="list-group-item"><b>Nama Aset : </b>${nama_aset}</li>

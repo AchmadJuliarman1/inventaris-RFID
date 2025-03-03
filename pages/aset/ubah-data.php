@@ -17,7 +17,6 @@ $_SESSION['ubah-aset'] = 0;
 $kode_aset = $_GET['kode_aset'];
 $nama_aset = $_GET['nama_aset'];
 $jumlah = $_GET['jumlah'];
-$id_aset = $_GET['id_aset'];
 $id_kategori = $_GET['id_kategori'];
 $tanggal_perolehan = $_GET['tanggal'];
 $nilai_ekonomis = $_GET['nilai_ekonomis'];
@@ -50,10 +49,6 @@ if(isset($_POST['submit'])){
 }
  ?>
 	<form action="" method="post" enctype="multipart/form-data">
-		<div class="mt-4">
-			<label for="id-aset" class="form-label">ID Aset</label>
-			<input type="text" class="form-control id-aset" name="id-aset" value="<?= $id_aset ?>" readonly>
-		</div>
 		<div class="mt-4">
 			<label for="nama-aset" class="form-label">Nama Aset</label>
 			<input type="text" class="form-control nama-aset" name="nama-aset" value="<?= $nama_aset ?>">

@@ -7,10 +7,13 @@ $db = new Database("localhost", "root", "", "inventaris");
 $aset = new Aset($db);
 
 $_SESSION['hapus-aset'] = 0;
-$gambar = $aset->getAsetById($_GET['id'])[0]["gambar"];
-var_dump($gambar);
-// die();
-if($aset->hapusAset($_GET['id'], $gambar) == 1){
+
+$kode = $_GET['kode'];
+$parts = explode("-", $kode);
+$part_kode = $parts[1]; // Output: hanya angka dibelakang -, agar INV - tidak diambil karna sudah ditangani di function getAsetByKode()
+
+$gambar = $aset->getAsetByKode($part_kode)[0]["gambar"];
+if($aset->hapusAset($kode, $gambar) == 1){ // hapusAset() tetap menggunakan kode full dengan INV - nya
 	$_SESSION['hapus-aset'] = 1;
 }
 

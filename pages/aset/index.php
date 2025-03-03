@@ -94,9 +94,9 @@ if (isset($_POST["cari"])) {
             data-biaya-penyusutan="<?= $a['biaya_penyusutan'] ?>" data-umur-ekonomis="<?= $a['umur_ekonomis'] ?>">
               lihat
             </button>
-            <a href="<?= PAGES_PATH ?>aset/ubah-data.php?kode_aset=<?= $a["kode_aset"]; ?>&nama_aset=<?= $a["nama_aset"]; ?>&jumlah=<?= $a["jumlah_aset"]; ?>&tanggal=<?= $a["tanggal_perolehan"]; ?>&id_aset=<?= $a['id'] ?>&id_kategori=<?= $a['id_kategori'] ?>&nilai_ekonomis=<?= $a['nilai_ekonomis'] ?>&nilai_residu=<?= $a['nilai_residu'] ?>&umur_ekonomis=<?= $a['umur_ekonomis'] ?>&gambar=<?= $a['gambar'] ?>" 
+            <a href="<?= PAGES_PATH ?>aset/ubah-data.php?kode_aset=<?= $a["kode_aset"]; ?>&nama_aset=<?= $a["nama_aset"]; ?>&jumlah=<?= $a["jumlah_aset"]; ?>&tanggal=<?= $a["tanggal_perolehan"]; ?>&id_kategori=<?= $a['id_kategori'] ?>&nilai_ekonomis=<?= $a['nilai_ekonomis'] ?>&nilai_residu=<?= $a['nilai_residu'] ?>&umur_ekonomis=<?= $a['umur_ekonomis'] ?>&gambar=<?= $a['gambar'] ?>" 
             type="button" class="btn btn-success my-2">Ubah</a>
-            <a href="" type="button" class="btn btn-danger my-2 hapus" data-id="<?= $a['id'] ?>" data-gambar="<?= $a['gambar'] ?>">Hapus</a>
+            <a href="" type="button" class="btn btn-danger my-2 hapus" data-kode="<?= $a["kode_aset"]; ?>" data-gambar="<?= $a['gambar'] ?>">Hapus</a>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -207,7 +207,7 @@ $(document).ready(function(){
         confirmButtonText: "Yes, delete it!"
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location = 'hapus-data.php?id='+$(this).data('id');
+          window.location = 'hapus-data.php?kode='+$(this).data('kode');
         } else if (result.isDenied) {
           Swal.fire('Changes are not saved', '', 'info')
         }
